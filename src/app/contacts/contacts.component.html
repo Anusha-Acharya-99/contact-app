@@ -1,0 +1,9 @@
+<app-contact-search (event)="getSearchContact(contacts)"></app-contact-search>
+<ul>
+    <li *ngFor="let contact of contacts">
+        <a routerLink="/detail/{{contact.id}}">
+            <span>{{contact.name}}</span>
+        </a>
+        <button class="delete" type="button" (click)="delete(contact.id)">x</button>
+    </li>
+</ul>

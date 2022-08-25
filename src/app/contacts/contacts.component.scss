@@ -1,0 +1,26 @@
+ul {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  background-color: #ebecf0;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 15px 10px;
+  font-size: 18px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: darkslategrey;
+  width: 100%;
+}
