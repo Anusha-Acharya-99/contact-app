@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contact } from '../contact';
 import { ContactService } from '../contact.service';
 
@@ -7,7 +7,7 @@ import { ContactService } from '../contact.service';
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 })
-export class ContactsComponent implements OnInit, DoCheck {
+export class ContactsComponent implements OnInit {
   contacts: Contact[] = [];
   constructor(private contactService: ContactService) {}
 
@@ -15,23 +15,15 @@ export class ContactsComponent implements OnInit, DoCheck {
     this.getContacts();
   }
 
-  ngDoCheck(): void {
-    this.getContacts();
-  }
-
   getContacts(): void {
-    this.contactService
-      .getContacts()
-      .subscribe((contacts) => (this.contacts = contacts));
-  }
-
-  getSearchContact(contacts: Contact[]): void {
-    console.log(contacts);
+    this.contacts = this.contactService.getContacts();
   }
 
   delete(id: number): void {
-    this.contactService
-      .deleteContact(id)
-      .subscribe((contacts: Contact[]) => (this.contacts = contacts));
+    this.contacts = this.contactService.deleteContact(id);
+  }
+
+  multipleDelete() {
+    this.contacts = this.contactService.multipleDelete(this.contacts);
   }
 }

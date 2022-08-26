@@ -9,7 +9,7 @@ import { Contact } from '../contact';
 })
 export class AddContactComponent implements OnInit {
   contacts: Contact[] = [];
-  model = { name: '', num: '' };
+  model = { name: '', num: '', email: '' };
 
   constructor(private contactService: ContactService) {}
 
@@ -18,22 +18,18 @@ export class AddContactComponent implements OnInit {
   }
 
   getContacts(): void {
-    this.contactService
-      .getContacts()
-      .subscribe((contacts) => (this.contacts = contacts));
+    this.contacts = this.contactService.getContacts();
   }
-  add(model: { name: string; num: string }) {
+  add(model: { name: string; num: string; email: string }) {
     model.name = model.name.trim();
     model.num = model.num.trim();
-    if (!model.name || !model.num) {
-      return;
-    }
+    model.email = model.email.trim();
     this.contactService.addContact(model as Contact);
   }
 
   onSubmit(): void {
     this.add(this.model);
-    this.model = { name: '', num: '' };
+    this.model = { name: '', num: '', email: '' };
     alert('Contact added successfully!');
   }
 }

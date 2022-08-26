@@ -1,5 +1,7 @@
-export interface Contact{
-    name:string;
-    num:string;
-    id:number;
+export interface Contact {
+  name: string;
+  num: string;
+  id: number;
+  email: string;
+  isChecked?: boolean;
 }

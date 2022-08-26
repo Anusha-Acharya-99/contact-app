@@ -1,4 +1,5 @@
 div {
+  position: relative;
   margin-top: 20px;
   text-align: center;
 }
@@ -9,4 +10,32 @@ label {
 
 input {
   height: 25px;
+}
+
+ul {
+  position: absolute;
+  width: 300px;
+  margin: 20px auto;
+  left: 0;
+  right: 0;
+  padding: 0;
+  background-color: #ffb6c1;
+  padding: 0 15px;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
 }

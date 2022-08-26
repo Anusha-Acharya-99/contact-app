@@ -23,8 +23,6 @@ export class ContactDetailComponent implements OnInit {
 
   getContact(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.contactService
-      .getContact(id)
-      .subscribe((contact: Contact) => (this.contact = contact));
+    this.contact = this.contactService.getContact(id);
   }
 }
