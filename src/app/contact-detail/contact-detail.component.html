@@ -3,9 +3,11 @@
         <span class="name">{{contact.name}}</span>
     </div>
     <div class="contact-detail">
+        <img class="icons" src="../../assets/phone.png" alt="phone">
         <span class="detail">{{contact.num}}</span>
     </div>
-    <div class="contact-detail">
+    <div class="contact-detail" *ngIf="contact.email">
+        <img class="icons" src="../../assets/email.png" alt="email">
         <span class="detail">{{contact.email}}</span>
     </div>
 </div>

@@ -1,6 +1,4 @@
 ul {
-  display: flex;
-  flex-direction: column;
   position: relative;
   width: 300px;
   margin-left: auto;
@@ -17,7 +15,6 @@ ul {
 li {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
   list-style-type: none;
   margin: 15px 10px;
   font-size: 18px;
@@ -35,21 +32,6 @@ a {
 .delete {
   width: 22px;
   height: 22px;
-}
-
-button:disabled {
-  background-color: grey;
-  opacity: 0.3;
-}
-
-button {
-  margin: auto;
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #f52851;
 }
 
 .no-content {

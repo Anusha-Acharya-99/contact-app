@@ -1,13 +1,10 @@
 .contact-details {
-  display: flex;
-  flex-direction: column;
   width: 300px;
   margin: 30px auto;
   padding: 0;
   background-color: #ebecf0;
   padding: 15px;
   border-radius: 10px;
-  align-items: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -15,13 +12,8 @@
 
 .contact-detail {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-}
-
-.icons {
-  height: 22px;
-  width: 22px;
 }
 
 span {

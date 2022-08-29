@@ -1,40 +1,30 @@
-ul {
+form {
   display: flex;
   flex-direction: column;
-  position: relative;
+  gap: 20px;
   width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto;
   padding: 0;
   background-color: #ebecf0;
   padding: 15px;
   border-radius: 10px;
+  align-items: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-li {
+.form-field {
+  width: 80%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
-  list-style-type: none;
-  margin: 15px 10px;
-  font-size: 18px;
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
+  // align-items: center;
 }
 
-a {
-  text-decoration: none;
-  color: darkslategrey;
-  width: 100%;
-}
-
-.delete {
-  width: 22px;
-  height: 22px;
+input {
+  height: 25px;
+  border: none;
 }
 
 button:disabled {
@@ -43,7 +33,6 @@ button:disabled {
 }
 
 button {
-  margin: auto;
   width: 100px;
   height: 30px;
   border-radius: 5px;
@@ -52,6 +41,12 @@ button {
   background-color: #f52851;
 }
 
-.no-content {
-  text-align: center;
+small {
+  color: red;
+}
+
+.selectBox {
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
 }

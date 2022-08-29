@@ -1,0 +1,31 @@
+<form #groupForm="ngForm" (ngSubmit)="onSubmit(); groupForm.reset()">
+  <div class="form-field">
+    <label for="name">Name: </label>
+    <input
+      id="name"
+      name="name"
+      [(ngModel)]="groupName"
+      #name="ngModel"
+      required
+    />
+    <small [hidden]="name.valid || name.untouched">Name is required</small>
+  </div>
+  <div class="form-field">
+    <div for="members">Add participants:</div>
+    <div class="selectBox">
+      <div *ngFor="let contact of contacts">
+        <input
+          type="checkbox"
+          name="contact"
+          #contact="ngModel"
+          value="{{ contact.id }}"
+          [(ngModel)]="contact.isChecked"
+        />
+        {{ contact.name }}
+      </div>
+    </div>
+  </div>
+  <button type="submit" [disabled]="!groupForm.form.valid || !enableDelete">
+    Add
+  </button>
+</form>

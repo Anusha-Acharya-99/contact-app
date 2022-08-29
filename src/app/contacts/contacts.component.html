@@ -1,13 +1,34 @@
-<app-contact-search>
-</app-contact-search>
+<app-contact-search
+  *ngIf="contacts.length !== 0"
+  (event)="getContactsBySearch($event)"
+></app-contact-search>
 <ul>
-    <li *ngFor="let contact of contacts">
-        <a routerLink="/detail/{{contact.id}}">
-            <span>{{contact.name}}</span>
-        </a>
-        <input type="checkbox" name="contact" #contact="ngModel" value="{{contact.id}}" [(ngModel)]="contact.isChecked">
-        <button class="delete" type="button" (click)="delete(contact.id)">x</button>
-    </li>
-    <button *ngIf="contacts.length !== 0" type="button" (click)="multipleDelete()">Delete</button>
-    <div *ngIf="contacts.length === 0">No contacts available <a routerLink="/add">Add now</a></div>
+  <li *ngFor="let contact of contacts">
+    <a routerLink="/detail/{{ contact.id }}">
+      <span>{{ contact.name }}</span>
+    </a>
+    <input
+      type="checkbox"
+      name="contact"
+      #contact="ngModel"
+      value="{{ contact.id }}"
+      [(ngModel)]="contact.isChecked"
+    />
+    <img
+      src="../../assets/delete.png"
+      class="delete"
+      (click)="delete(contact.id)"
+    />
+  </li>
+  <button
+    *ngIf="contacts.length !== 0"
+    [disabled]="!enableDelete"
+    type="button"
+    (click)="multipleDelete()"
+  >
+    Delete
+  </button>
+  <div class="no-content" *ngIf="contacts.length === 0">
+    No contacts available
+  </div>
 </ul>
