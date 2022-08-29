@@ -21,6 +21,10 @@ li {
   background-color: white;
   padding: 5px;
   border-radius: 5px;
+  :hover {
+    font-size: 19px;
+    color: #f52851;
+  }
 }
 
 a {
