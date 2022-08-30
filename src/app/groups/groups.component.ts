@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact, Group } from '../contact';
-import { ContactService } from '../contact.service';
+import { Group } from '../contact';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-groups',
@@ -9,22 +9,21 @@ import { ContactService } from '../contact.service';
 })
 export class GroupsComponent implements OnInit {
   groups: Group[] = [];
-  constructor(private contactService: ContactService) {}
+  constructor(private groupService: GroupService) {}
 
   ngOnInit(): void {
     this.getGroups();
   }
 
   getGroups() {
-    this.groups = this.contactService.getGroups();
+    this.groups = this.groupService.getGroups();
   }
 
   deleteGroup(id: number) {
-    this.groups = this.contactService.deleteGroup(id);
+    this.groups = this.groupService.deleteGroup(id);
   }
 
   getGroupsBySearch(event: any) {
-    console.log(event.contacts.length);
     if (event.term.length !== 0) {
       this.groups = event.contacts;
     } else {

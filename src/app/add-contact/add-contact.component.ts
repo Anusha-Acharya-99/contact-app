@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../contact.service';
+import { ContactService } from '../services/contact.service';
 import { Contact } from '../contact';
 
 @Component({
@@ -20,15 +20,9 @@ export class AddContactComponent implements OnInit {
   getContacts(): void {
     this.contacts = this.contactService.getContacts();
   }
-  add(model: { name: string; num: string; email: string }) {
-    model.name = model.name.trim();
-    model.num = model.num.trim();
-    model.email = model.email.trim();
-    this.contactService.addContact(model as Contact);
-  }
 
   onSubmit(): void {
-    this.add(this.model);
+    this.contactService.addContact(this.model as Contact);
     this.model = { name: '', num: '', email: '' };
     alert('Contact added successfully!');
   }

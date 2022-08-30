@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from '../contact';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { ContactService } from '../contact.service';
+import { ContactService } from '../services/contact.service';
 
 @Component({
   selector: 'app-contact-detail',
@@ -12,7 +11,6 @@ import { ContactService } from '../contact.service';
 export class ContactDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
     private contactService: ContactService
   ) {}
 

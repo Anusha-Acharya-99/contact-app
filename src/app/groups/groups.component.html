@@ -1,15 +1,14 @@
-<app-contact-search *ngIf="groups.length!==0" (event)="getGroupsBySearch($event)"></app-contact-search>
+<app-contact-search (event)="getGroupsBySearch($event)"></app-contact-search>
 <ul>
-    <li *ngFor="let group of groups">
-        <a routerLink="/group-detail/{{group.id}}">
-            <span>{{group.name}}</span>
-        </a>
-        <!-- <input type="checkbox" name="contact" #contact="ngModel" value="{{contact.id}}" [(ngModel)]="contact.isChecked"> -->
-        <img src="../../assets/delete.png" class="delete" (click)="deleteGroup(group.id)">
-        <!-- <button class="delete" type="button" (click)="deleteGroup(group.id)">x</button> -->
-    </li>
-    <div class="no-content" *ngIf="groups.length === 0">No groups available</div>
-    <!-- <button *ngIf="contacts.length !== 0" type="button" (click)="multipleDelete()">Delete</button>
-    <button *ngIf="contacts.length !== 0" type="button" (click)="addGroup()">Group</button>
-    <div *ngIf="contacts.length === 0">No contacts available <a routerLink="/add">Add now</a></div> -->
+  <li *ngFor="let group of groups">
+    <a routerLink="/group-detail/{{ group.id }}">
+      <span>{{ group.name }}</span>
+    </a>
+    <img
+      src="../../assets/delete.png"
+      class="delete"
+      (click)="deleteGroup(group.id)"
+    />
+  </li>
+  <div class="no-content" *ngIf="groups.length === 0">No groups available</div>
 </ul>

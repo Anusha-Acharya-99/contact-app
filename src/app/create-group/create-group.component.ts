@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact, Group } from '../contact';
-import { ContactService } from '../contact.service';
+import { Contact } from '../contact';
+import { ContactService } from '../services/contact.service';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-create-group',
@@ -12,7 +13,10 @@ export class CreateGroupComponent implements OnInit {
   groupName: string = '';
   enableDelete = false;
 
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    private groupService: GroupService
+  ) {}
 
   ngOnInit(): void {
     this.getContacts();
@@ -27,7 +31,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.contactService.addGroup(this.groupName, this.contacts);
+    this.groupService.addGroup(this.groupName, this.contacts);
     alert('Group created successfully!');
     this.contacts.map((contact) => (contact.isChecked = false));
   }

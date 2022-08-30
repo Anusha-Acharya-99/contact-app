@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/contacts', pathMatch: 'full' },
   { path: 'contacts', component: ContactsComponent },
   { path: 'detail/:id', component: ContactDetailComponent },
-  { path: 'add', component: AddContactComponent },
+  { path: 'add-contact', component: AddContactComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'group-detail/:id', component: GroupDetailComponent },
   { path: 'create-group', component: CreateGroupComponent },

@@ -1,8 +1,8 @@
-<div *ngIf="group" class="contact-details">
-  <div class="contact-detail">
+<div *ngIf="group" class="group-details">
+  <div class="group-detail">
     <span class="name">{{ group.name }}</span>
   </div>
-  <div class="contact-detail">
+  <div class="group-detail">
     <span class="detail" *ngFor="let member of group.members">{{
       member.name
     }}</span>

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Contact } from '../contact';
-import { ContactService } from '../contact.service';
+import { ContactService } from '../services/contact.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ContactSearchComponent implements OnInit {
   contacts$!: Observable<Contact[]>;
-  contacts: Contact[] = [];
   term: string = '';
   private searchTerms = new Subject<string>();
   constructor(private contactService: ContactService, private router: Router) {}
@@ -24,7 +23,6 @@ export class ContactSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.router.url);
     this.contacts$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -36,16 +34,8 @@ export class ContactSearchComponent implements OnInit {
         );
       })
     );
-    this.contacts$.subscribe((contacts) => (this.contacts = contacts));
     this.contacts$.subscribe((contacts) =>
       this.event.emit({ contacts, term: this.term })
     );
-    // localStorage.setItem('search', this.contacts$);
   }
-
-  // ngDoCheck(): void {
-  //   console.log(this.term);
-  //   // this.event.emit(this.contacts$);
-  //   // console.log(this.contacts);
-  // }
 }
