@@ -13,7 +13,7 @@
   <div class="form-field">
     <div for="members">Add participants:</div>
     <div class="selectBox">
-      <div *ngFor="let contact of contacts">
+      <div *ngFor="let contact of contacts" class="member-list">
         <input
           type="checkbox"
           name="contact"
@@ -21,7 +21,9 @@
           value="{{ contact.id }}"
           [(ngModel)]="contact.isChecked"
         />
-        {{ contact.name }}
+        <span>
+          {{ contact.name }}
+        </span>
       </div>
     </div>
   </div>

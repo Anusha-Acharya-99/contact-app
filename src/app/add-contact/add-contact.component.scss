@@ -1,44 +1,19 @@
+@import "../../variables";
+
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
-  margin: 20px auto;
-  padding: 0;
-  background-color: #ebecf0;
-  padding: 15px;
-  border-radius: 10px;
-  align-items: center;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  @include form-container;
 }
 
 .form-field {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  // align-items: center;
+  @include form-field;
 }
 
 input {
-  height: 25px;
-  border: none;
-}
-
-button:disabled {
-  background-color: grey;
-  opacity: 0.3;
+  @include form-input;
 }
 
 button {
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: #f52851;
+  @include button;
 }
 
 small {
