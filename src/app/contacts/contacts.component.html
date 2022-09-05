@@ -1,34 +1,74 @@
-<app-contact-search
-  *ngIf="contacts.length !== 0"
-  (event)="getContactsBySearch($event)"
-></app-contact-search>
-<ul>
-  <li *ngFor="let contact of contacts">
-    <a routerLink="/detail/{{ contact.id }}">
-      <span>{{ contact.name }}</span>
-    </a>
-    <input
-      type="checkbox"
-      name="contact"
-      #contact="ngModel"
-      value="{{ contact.id }}"
-      [(ngModel)]="contact.isChecked"
-    />
+<div class="list-container">
+  <div class="top-left-container">
+    <div class="profile">
+      <img src="../../assets/profile.png" alt="" height="30px" width="30px" />
+    </div>
+    <img class="icon" src="../../assets/chat.png" alt="" />
     <img
-      src="../../assets/delete.png"
-      class="delete"
-      (click)="delete(contact.id)"
+      (click)="menuOpen = !menuOpen"
+      class="icon"
+      src="../../assets/options.png"
+      alt=""
     />
-  </li>
-  <button
+  </div>
+  <div *ngIf="menuOpen" class="menu-container">
+    <div class="menu-option">
+      <a href="/add-contact">Add contact</a>
+    </div>
+    <div class="menu-option">
+      <a href="/create-group">Create group</a>
+    </div>
+  </div>
+  <div class="search-container">
+    <app-contact-search
+      (event)="getContactsBySearch($event)"
+    ></app-contact-search>
+  </div>
+  <ul>
+    <li *ngFor="let contact of contacts">
+      <div class="list-item">
+        <img
+          [src]="contact.image ? contact.image : imageUrl"
+          alt=""
+          height="40px"
+          width="40px"
+        />
+        <a routerLink="/detail/{{ contact.id }}">
+          <span>{{ contact.name }}</span>
+          <!-- <span class="date">{{ contact.id | date: "shortDate" }}</span> -->
+        </a>
+        <img
+          (click)="delete(contact.id)"
+          class="hide"
+          src="../../assets/delete2.png"
+          alt=""
+          width="22px"
+          height="22px"
+        />
+      </div>
+      <!-- <input
+        type="checkbox"
+        name="contact"
+        #contact="ngModel"
+        value="{{ contact.id }}"
+        [(ngModel)]="contact.isChecked"
+      /> -->
+      <!-- <img
+        src="../../assets/delete.png"
+        class="delete"
+        (click)="delete(contact.id)"
+      /> -->
+    </li>
+  </ul>
+  <!-- <button
     *ngIf="contacts.length !== 0"
     [disabled]="!enableDelete"
     type="button"
     (click)="multipleDelete()"
   >
     Delete
-  </button>
+  </button> -->
   <div class="no-content" *ngIf="contacts.length === 0">
     No contacts available
   </div>
-</ul>
+</div>

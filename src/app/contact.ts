@@ -3,6 +3,8 @@ export interface Contact {
   num: string;
   id: number;
   email: string;
+  image: string;
+  members?: Contact[];
   isChecked?: boolean;
 }
 

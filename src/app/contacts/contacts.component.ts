@@ -1,6 +1,7 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit, Renderer2 } from '@angular/core';
 import { Contact } from '../contact';
 import { ContactService } from '../services/contact.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contacts',
@@ -11,6 +12,8 @@ export class ContactsComponent implements OnInit, DoCheck {
   contacts: Contact[] = [];
   groupName: string = '';
   enableDelete = false;
+  menuOpen = false;
+  imageUrl = '../../assets/profile.png';
 
   constructor(private contactService: ContactService) {}
 
@@ -19,11 +22,16 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
+    this.getContacts();
     this.findSelect();
   }
 
   getContacts(): void {
     this.contacts = this.contactService.getContacts();
+    // this.contacts = this.contacts.map((contact) => {
+    //   return { ...contact, image: JSON.parse(contact.image) };
+    // });
+    // console.log(this.contacts);
   }
 
   delete(id: number): void {

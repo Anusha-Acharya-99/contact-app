@@ -1,27 +1,117 @@
 @import "../../variables";
 
+:host {
+  width: 30%;
+}
+
+.list-container {
+  @include flex-display(column, left);
+  position: relative;
+  height: 100vh;
+  overflow-y: scroll;
+  // margin-left: auto;
+  // margin-right: auto;
+  padding: 0;
+  margin: 0;
+  background-color: $main-box-color;
+  // padding: 15px;
+  border-radius: 10px;
+  box-shadow: $content-box-shadow;
+}
+
 ul {
-  @include list-container;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-  @include list-item;
-}
-
-a {
-  @include list-link;
-  width: 80%;
+  position: relative;
+  list-style-type: none;
+  font-size: 18px;
+  background-color: white;
+  padding: 10px 5px;
+  border-radius: 5px;
+  .list-item {
+    @include flex-display(row, center);
+    justify-content: space-between;
+  }
+  .hide {
+    display: none;
+  }
+  a {
+    text-decoration: none;
+    color: darkslategrey;
+    width: 80%;
+  }
+  .delete-container {
+    margin-left: 80%;
+  }
+  &:hover {
+    background-color: rgb(233, 234, 235);
+    color: $main-color;
+    .hide {
+      display: block;
+    }
+    a {
+      width: 65%;
+    }
+  }
 }
 
 .delete {
-  @include icon;
+  width: 22px;
+  height: 22px;
 }
 
 button {
   margin: auto;
-  @include button;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: $main-color;
+  &:disabled {
+    background-color: $disabled-color;
+    opacity: $disabled-opacity;
+  }
 }
 
 .no-content {
-  @include no-content;
+  text-align: center;
+}
+
+.top-left-container {
+  @include flex-display(row, center);
+  height: 60px;
+  background-color: rgb(238, 238, 238);
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  padding: 10px;
+}
+
+.profile {
+  width: 60%;
+  padding: 10px;
+}
+
+.search-container {
+  height: 40px;
+  padding: 7px 10px;
+  background-color: rgb(251, 251, 251);
+  @include flex-display(row, center);
+  justify-content: center;
+}
+
+.menu-container {
+  width: 50%;
+  margin-left: 50%;
+  border: 1px solid black;
+}
+
+.menu-option {
+  padding: 10px;
 }

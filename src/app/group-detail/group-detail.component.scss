@@ -1,7 +1,16 @@
 @import "../../variables";
 
 .group-details {
-  @include contact-container;
+  @include flex-display(row, left);
+  // width: 70%;
+  // margin: 30px auto;
+  padding: 0;
+  height: 100vh;
+  margin: 0;
+  background-color: $main-box-color;
+  // padding: 15px;
+  border-radius: 10px;
+  box-shadow: $content-box-shadow;
 }
 
 .group-detail {

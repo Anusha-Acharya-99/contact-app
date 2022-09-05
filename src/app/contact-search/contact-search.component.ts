@@ -28,10 +28,7 @@ export class ContactSearchComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((term: string) => {
         this.term = term;
-        return this.contactService.searchContacts(
-          term,
-          this.router.url.slice(1)
-        );
+        return this.contactService.searchContacts(term);
       })
     );
     this.contacts$.subscribe((contacts) =>

@@ -1,19 +1,39 @@
 @import "../../variables";
 
 form {
-  @include form-container;
+  @include flex-display(column, center);
+  gap: 20px;
+  width: 300px;
+  margin: 20px auto;
+  padding: 0;
+  background-color: $main-box-color;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: $content-box-shadow;
 }
 
 .form-field {
-  @include form-field;
+  width: 80%;
+  @include flex-display(column, left);
+  justify-content: space-between;
 }
 
 input {
-  @include form-input;
+  height: 25px;
+  border: none;
 }
 
 button {
-  @include button;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  background-color: $main-color;
+  &:disabled {
+    background-color: $disabled-color;
+    opacity: $disabled-opacity;
+  }
 }
 
 small {

@@ -9,7 +9,7 @@ import { Contact } from '../contact';
 })
 export class AddContactComponent implements OnInit {
   contacts: Contact[] = [];
-  model = { name: '', num: '', email: '' };
+  model = { name: '', num: '', email: '', image: '' };
 
   constructor(private contactService: ContactService) {}
 
@@ -23,7 +23,25 @@ export class AddContactComponent implements OnInit {
 
   onSubmit(): void {
     this.contactService.addContact(this.model as Contact);
-    this.model = { name: '', num: '', email: '' };
+    this.model = { name: '', num: '', email: '', image: '' };
     alert('Contact added successfully!');
+  }
+
+  previewImage(e: any) {
+    const reader = new FileReader();
+    reader.addEventListener(
+      'load',
+      () => {
+        this.model.image = JSON.stringify(reader.result);
+        document
+          .getElementById('profileImage')
+          ?.setAttribute('src', JSON.parse(this.model.image));
+      },
+      false
+    );
+
+    if (e.target.files && e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
   }
 }

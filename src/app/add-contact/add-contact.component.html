@@ -1,24 +1,67 @@
 <form (ngSubmit)="onSubmit(); contactForm.reset()" #contactForm="ngForm">
-    <div class="form-field">
-        <label for="name">Name: </label>
-        <input id="name" name="name" [(ngModel)]="model.name" #name="ngModel" required />
-        <small [hidden]="name.valid || name.untouched">Name is required</small>
+  <div class="form-field">
+    <label for="name">Name: </label>
+    <input
+      id="name"
+      name="name"
+      [(ngModel)]="model.name"
+      #name="ngModel"
+      required
+    />
+    <small [hidden]="name.valid || name.untouched">Name is required</small>
+  </div>
+  <div class="form-field">
+    <label for="number">Number: </label>
+    <input
+      id="number"
+      name="number"
+      [(ngModel)]="model.num"
+      required
+      #number="ngModel"
+      pattern="^[0-9]*$"
+      minlength="10"
+      maxlength="10"
+    />
+    <small
+      *ngIf="number.invalid && number.touched && number.errors?.['required']"
+      >Number is required</small
+    >
+    <small
+      *ngIf="number.invalid && number.touched && number.errors?.['pattern'] || number.errors?.['minlength'] ||number.errors?.['maxlength'] "
+      >Enter valid number</small
+    >
+  </div>
+  <div class="form-field">
+    <label for="email">Email: </label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      #email="ngModel"
+      [(ngModel)]="model.email"
+      pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
+    />
+    <small *ngIf="email.invalid && email.touched && email.errors?.['pattern']"
+      >Enter valid email</small
+    >
+  </div>
+  <div class="form-field">
+    <label for="image">Profile photo</label>
+    <input
+      type="file"
+      id="image"
+      name="image"
+      (change)="previewImage($event)"
+    />
+    <div class="profile-image-container">
+      <img
+        src="../../assets/profile.png"
+        id="profileImage"
+        height="100px"
+        width="100px"
+        alt=""
+      />
     </div>
-    <div class="form-field">
-        <label for="number">Number: </label>
-        <input id="number" name="number" [(ngModel)]="model.num" required #number="ngModel" pattern="^[0-9]*$"
-            minlength="10" maxlength="10" />
-        <small *ngIf="number.invalid && number.touched && number.errors?.['required']">Number is required</small>
-        <small
-            *ngIf="number.invalid && number.touched && number.errors?.['pattern'] || number.errors?.['minlength'] ||number.errors?.['maxlength'] ">Enter
-            valid number</small>
-
-    </div>
-    <div class="form-field">
-        <label for="email">Email: </label>
-        <input type="email" id="email" name="email" #email="ngModel" [(ngModel)]="model.email"
-            pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" />
-        <small *ngIf="email.invalid && email.touched && email.errors?.['pattern']">Enter valid email</small>
-    </div>
-    <button type="submit" [disabled]="!contactForm.form.valid">Add</button>
+  </div>
+  <button type="submit" [disabled]="!contactForm.form.valid">Add</button>
 </form>

@@ -1,6 +1,6 @@
 $main-color: #f52851;
 $disabled-color: grey;
-$main-box-color: #ebecf0;
+$main-box-color: white;
 $disabled-opacity: 0.3;
 $content-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
   rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
@@ -13,91 +13,31 @@ $content-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
 }
 
 @mixin list-container {
-  @include flex-display(column, left);
-  position: relative;
-  width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0;
-  background-color: $main-box-color;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: $content-box-shadow;
 }
 
 @mixin list-item {
-  @include flex-display(row, left);
-  justify-content: space-between;
-  list-style-type: none;
-  margin: 15px 10px;
-  font-size: 18px;
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
-  :hover {
-    font-size: 19px;
-    color: $main-color;
-  }
 }
 
 @mixin list-link {
-  text-decoration: none;
-  color: darkslategrey;
-  width: 100%;
 }
 
 @mixin icon {
-  width: 22px;
-  height: 22px;
 }
 
 @mixin no-content {
-  text-align: center;
 }
 
 @mixin button {
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: $main-color;
-  &:disabled {
-    background-color: $disabled-color;
-    opacity: $disabled-opacity;
-  }
 }
 
 @mixin form-container {
-  @include flex-display(column, center);
-  gap: 20px;
-  width: 300px;
-  margin: 20px auto;
-  padding: 0;
-  background-color: $main-box-color;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: $content-box-shadow;
 }
 
 @mixin form-field {
-  width: 80%;
-  @include flex-display(column, left);
-  justify-content: space-between;
 }
 
 @mixin form-input {
-  height: 25px;
-  border: none;
 }
 
 @mixin contact-container {
-  @include flex-display(column, center);
-  width: 300px;
-  margin: 30px auto;
-  padding: 0;
-  background-color: $main-box-color;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: $content-box-shadow;
 }

@@ -11,6 +11,24 @@
     <small [hidden]="name.valid || name.untouched">Name is required</small>
   </div>
   <div class="form-field">
+    <label for="image">Profile photo</label>
+    <input
+      type="file"
+      id="image"
+      name="image"
+      (change)="previewImage($event)"
+    />
+    <div class="profile-image-container">
+      <img
+        src="../../assets/profile.png"
+        id="profileImage"
+        height="100px"
+        width="100px"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="form-field">
     <div for="members">Add participants:</div>
     <div class="selectBox">
       <div *ngFor="let contact of contacts" class="member-list">

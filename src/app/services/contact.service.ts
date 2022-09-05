@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Contact } from '../contact';
+import { Contact, Group } from '../contact';
 import { Observable, of } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,25 @@ export class ContactService {
 
   getContacts(): Contact[] {
     const storedContacts = localStorage.getItem('contacts');
+    const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
-      const contacts = JSON.parse(storedContacts);
+      const contacts = JSON.parse(storedContacts).map((contact: Contact) => {
+        return {
+          ...contact,
+          image: JSON.parse(contact.image),
+        };
+      });
+      if (storedGroups) {
+        const contactsGroups = contacts.concat(
+          JSON.parse(storedGroups).map((contact: Contact) => {
+            return {
+              ...contact,
+              image: JSON.parse(contact.image),
+            };
+          })
+        );
+        return contactsGroups;
+      }
       return contacts;
     } else {
       return [];
@@ -20,9 +38,19 @@ export class ContactService {
 
   getContact(id: number): Contact | undefined {
     const storedContacts = localStorage.getItem('contacts');
+    const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
       const contact = contacts.find((contact: Contact) => contact.id === id)!;
+      if (contact) {
+        contact.image = JSON.parse(contact.image);
+      }
+      if (!contact && storedGroups) {
+        const groups = JSON.parse(storedGroups);
+        const group = groups.find((group: Group) => group.id === id);
+        group.image = JSON.parse(group.image);
+        return group;
+      }
       return contact;
     }
     return;
@@ -42,6 +70,7 @@ export class ContactService {
 
   deleteContact(id: number) {
     const storedContacts = localStorage.getItem('contacts');
+    // const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
       const updatedContacts = contacts.filter(
@@ -52,17 +81,38 @@ export class ContactService {
     }
   }
 
-  searchContacts(term: string, path: string): Observable<Contact[]> {
+  searchContacts(term: string): Observable<Contact[]> {
     if (!term.trim()) {
       return of([]);
     }
-    const storedContacts = localStorage.getItem(path);
-    if (storedContacts) {
+    const storedContacts = localStorage.getItem('contacts');
+    const storedGroups = localStorage.getItem('groups');
+    if (storedContacts && storedGroups) {
       const contacts = JSON.parse(storedContacts);
-      const updatedContacts = contacts.filter((contact: Contact) =>
-        contact.name.toUpperCase().includes(term.toUpperCase())
+      const groups = JSON.parse(storedGroups);
+      const searchContacts = contacts
+        .filter((contact: Contact) =>
+          contact.name.toUpperCase().includes(term.toUpperCase())
+        )
+        .map((contact: Contact) => {
+          return {
+            ...contact,
+            image: JSON.parse(contact.image),
+          };
+        });
+      const searchResult = searchContacts.concat(
+        groups
+          .filter((group: Contact) =>
+            group.name.toUpperCase().includes(term.toUpperCase())
+          )
+          .map((contact: Contact) => {
+            return {
+              ...contact,
+              image: JSON.parse(contact.image),
+            };
+          })
       );
-      return of(updatedContacts);
+      return of(searchResult);
     } else {
       return of([]);
     }

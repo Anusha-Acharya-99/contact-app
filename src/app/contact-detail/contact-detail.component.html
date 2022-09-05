@@ -1,13 +1,62 @@
 <div *ngIf="contact" class="contact-details">
-    <div class="contact-detail">
-        <span class="name">{{contact.name}}</span>
+  <div class="chat-container">
+    <div class="top-left-container" (click)="showDetails = true">
+      <div class="profile">
+        <img
+          class="icon"
+          [src]="contact.image ? contact.image : imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="contact-detail">
+        <div class="name-date-container">
+          <span class="name">{{ contact.name }}</span>
+          <span class="date">{{ contact.id | date: "shortDate" }}</span>
+        </div>
+        <div *ngIf="contact.members">
+          <span>{{ members }}</span>
+        </div>
+      </div>
     </div>
-    <div class="contact-detail">
+    <div class="chat-section"></div>
+  </div>
+  <div *ngIf="showDetails" class="details-container">
+    <div class="top-left-container">
+      <img
+        class="icon"
+        src="../../assets/x.jpg"
+        alt=""
+        (click)="showDetails = false"
+      />
+      <span class="name">Contact info</span>
+    </div>
+    <img
+      [src]="contact.image ? contact.image : imageUrl"
+      width="200px"
+      height="200px"
+      alt=""
+    />
+    <div class="name">
+      {{ contact.name }}
+    </div>
+    <div>
+      {{ contact.num }}
+    </div>
+    <div *ngIf="contact.email">
+      {{ contact.email }}
+    </div>
+    <div *ngIf="contact.members">
+      <div *ngFor="let member of contact.members">
+        {{ member.name }}
+      </div>
+    </div>
+  </div>
+  <!-- <div class="contact-detail">
         <img class="icons" src="../../assets/phone.png" alt="phone">
         <span class="detail">{{contact.num}}</span>
     </div>
     <div class="contact-detail" *ngIf="contact.email">
         <img class="icons" src="../../assets/email.png" alt="email">
         <span class="detail">{{contact.email}}</span>
-    </div>
+    </div> -->
 </div>

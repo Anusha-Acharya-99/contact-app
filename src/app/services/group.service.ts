@@ -8,14 +8,19 @@ import { ContactService } from './contact.service';
 export class GroupService {
   constructor(private contactService: ContactService) {}
 
-  addGroup(groupName: string, contacts: Contact[]) {
+  addGroup(groupName: string, contacts: Contact[], profileImage: string) {
     const groupContacts = contacts.filter(
       (contact) => contact.isChecked === true
     );
     const storedGroups = localStorage.getItem('groups');
     const id = Date.now();
     if (groupContacts && groupName) {
-      const newGroup = { name: groupName, id: id, members: groupContacts };
+      const newGroup = {
+        name: groupName,
+        id: id,
+        members: groupContacts,
+        image: profileImage,
+      };
       if (storedGroups) {
         const groups = JSON.parse(storedGroups);
         groups.push(newGroup);

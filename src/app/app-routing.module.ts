@@ -8,8 +8,8 @@ import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
-  { path: 'contacts', component: ContactsComponent },
+  // { path: '', redirectTo: '/contacts', pathMatch: 'full' },
+  // { path: '', component: ContactsComponent },
   { path: 'detail/:id', component: ContactDetailComponent },
   { path: 'add-contact', component: AddContactComponent },
   { path: 'groups', component: GroupsComponent },
