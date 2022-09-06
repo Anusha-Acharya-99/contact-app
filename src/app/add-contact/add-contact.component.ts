@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ContactService } from '../services/contact.service';
 import { Contact } from '../contact';
 
@@ -9,7 +9,8 @@ import { Contact } from '../contact';
 })
 export class AddContactComponent implements OnInit {
   contacts: Contact[] = [];
-  model = { name: '', num: '', email: '', image: '' };
+  model = { name: '', num: '', email: '', image: '', type: 'contact' };
+  @Output() event = new EventEmitter();
 
   constructor(private contactService: ContactService) {}
 
@@ -26,8 +27,9 @@ export class AddContactComponent implements OnInit {
     document
       .getElementById('profileImage')
       ?.setAttribute('src', '../../assets/profile.png');
-    this.model = { name: '', num: '', email: '', image: '' };
+    this.model = { name: '', num: '', email: '', image: '', type: 'contact' };
     alert('Contact added successfully!');
+    this.event.emit();
   }
 
   previewImage(e: any) {

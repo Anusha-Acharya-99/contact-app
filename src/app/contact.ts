@@ -1,12 +1,12 @@
 export interface Contact {
   name: string;
-  num: string;
+  num?: string;
   id: number;
-  email: string;
+  email?: string;
   image: string;
   members: Contact[];
   isChecked?: boolean;
-  type: string;
+  type?: string;
 }
 
 export interface Group {

@@ -1,51 +1,38 @@
-<form #groupForm="ngForm" (ngSubmit)="onSubmit(); groupForm.reset()">
-  <div class="form-field">
-    <label for="name">Name: </label>
+<form
+  class="new-group-container"
+  (ngSubmit)="onSubmit(); groupForm.reset()"
+  #groupForm="ngForm"
+>
+  <input
+    type="file"
+    name="groupIcon"
+    id="groupIcon"
+    (change)="previewImage($event)"
+  />
+  <img
+    src="../../assets/profile.png"
+    id="previewIcon"
+    alt=""
+    height="150px"
+    width="150px"
+  />
+  <div>
+    <label for="groupName">Group Name</label>
     <input
       id="name"
       name="name"
-      [(ngModel)]="groupName"
+      [(ngModel)]="model.name"
       #name="ngModel"
       required
     />
     <small [hidden]="name.valid || name.untouched">Name is required</small>
   </div>
-  <div class="form-field">
-    <label for="image">Profile photo</label>
-    <input
-      type="file"
-      id="image"
-      name="image"
-      (change)="previewImage($event)"
-    />
-    <div class="profile-image-container">
-      <img
-        src="../../assets/profile.png"
-        id="profileImage"
-        height="100px"
-        width="100px"
-        alt=""
-      />
-    </div>
-  </div>
-  <div class="form-field">
-    <div for="members">Add participants:</div>
-    <div class="selectBox">
-      <div *ngFor="let contact of contacts" class="member-list">
-        <input
-          type="checkbox"
-          name="contact"
-          #contact="ngModel"
-          value="{{ contact.id }}"
-          [(ngModel)]="contact.isChecked"
-        />
-        <span>
-          {{ contact.name }}
-        </span>
-      </div>
-    </div>
-  </div>
-  <button type="submit" [disabled]="!groupForm.form.valid || !enableDelete">
-    Add
-  </button>
+  <img
+    src="../../assets/save.jpg"
+    height="50px"
+    width="50px"
+    alt=""
+    *ngIf="groupForm.form.valid"
+    (click)="onSubmit()"
+  />
 </form>

@@ -1,53 +1,58 @@
 @import "../../variables";
 
-form {
-  @include flex-display(column, center);
-  gap: 20px;
-  width: 300px;
-  margin: 20px auto;
-  padding: 0;
-  background-color: $main-box-color;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: $content-box-shadow;
+.new-group-container {
+  width: 100%;
+  // @include flex-display(column, center);
 }
 
-.form-field {
-  width: 80%;
-  @include flex-display(column, left);
-  justify-content: space-between;
-}
+// form {
+//   @include flex-display(column, center);
+//   gap: 20px;
+//   width: 300px;
+//   margin: 20px auto;
+//   padding: 0;
+//   background-color: $main-box-color;
+//   padding: 15px;
+//   border-radius: 10px;
+//   box-shadow: $content-box-shadow;
+// }
 
-input {
-  height: 25px;
-  border: none;
-}
+// .form-field {
+//   width: 80%;
+//   @include flex-display(column, left);
+//   justify-content: space-between;
+// }
 
-button {
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: $main-color;
-  &:disabled {
-    background-color: $disabled-color;
-    opacity: $disabled-opacity;
-  }
-}
+// input {
+//   height: 25px;
+//   border: none;
+// }
 
-small {
-  color: red;
-}
+// button {
+//   width: 100px;
+//   height: 30px;
+//   border-radius: 5px;
+//   border: none;
+//   color: white;
+//   background-color: $main-color;
+//   &:disabled {
+//     background-color: $disabled-color;
+//     opacity: $disabled-opacity;
+//   }
+// }
 
-.selectBox {
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
+// small {
+//   color: red;
+// }
 
-.member-list {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+// .selectBox {
+//   background-color: white;
+//   padding: 5px;
+//   border-radius: 5px;
+// }
+
+// .member-list {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px;
+// }

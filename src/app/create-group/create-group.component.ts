@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Contact } from '../contact';
 import { ContactService } from '../services/contact.service';
 import { GroupService } from '../services/group.service';
@@ -13,6 +13,8 @@ export class CreateGroupComponent implements OnInit {
   groupName: string = '';
   enableDelete = false;
   profileImage = '';
+  @Input() model: any;
+  @Output() event = new EventEmitter();
 
   constructor(
     private contactService: ContactService,
@@ -32,16 +34,19 @@ export class CreateGroupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.groupService.addGroup(
-      this.groupName,
-      this.contacts,
-      this.profileImage
-    );
+    this.contactService.addContact(this.model as Contact);
     alert('Group created successfully!');
     document
-      .getElementById('profileImage')
+      .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');
     this.contacts.map((contact) => (contact.isChecked = false));
+    this.model = {
+      name: '',
+      members: [{}],
+      image: '',
+      type: 'group',
+    };
+    this.event.emit();
   }
 
   findSelect() {
@@ -54,10 +59,10 @@ export class CreateGroupComponent implements OnInit {
     reader.addEventListener(
       'load',
       () => {
-        this.profileImage = JSON.stringify(reader.result);
+        this.model.image = JSON.stringify(reader.result);
         document
-          .getElementById('profileImage')
-          ?.setAttribute('src', JSON.parse(this.profileImage));
+          .getElementById('previewIcon')
+          ?.setAttribute('src', JSON.parse(this.model.image));
       },
       false
     );

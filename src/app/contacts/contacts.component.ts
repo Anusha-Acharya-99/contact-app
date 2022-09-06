@@ -12,15 +12,21 @@ import { GroupService } from '../services/group.service';
 })
 export class ContactsComponent implements OnInit, DoCheck {
   contacts: Contact[] = [];
-  groupName: string = '';
   enableDelete = false;
   menuOpen = false;
   imageUrl = '../../assets/profile.png';
   addParticipants = false;
   selected = false;
   newGroup = false;
-  selectedContacts: Contact[] = [];
-  groupIcon = '';
+  newContact = false;
+  deleteMultiple = false;
+  // selectedContacts: Contact[] = [];
+  model: { name: string; members: Contact[]; image: string; type: string } = {
+    name: '',
+    members: [],
+    image: '',
+    type: 'group',
+  };
 
   constructor(
     private contactService: ContactService,
@@ -35,6 +41,7 @@ export class ContactsComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     // this.getContacts();
+    console.log(this.model.members);
     this.findSelect();
   }
 
@@ -70,10 +77,12 @@ export class ContactsComponent implements OnInit, DoCheck {
 
   selectContact(contact: Contact) {
     contact.isChecked = !contact.isChecked;
-    this.selectedContacts = this.contacts.filter(
-      (contact) => contact.isChecked === true
-    );
-    console.log(this.selectedContacts);
+    if (this.addParticipants) {
+      this.model.members = this.contacts.filter(
+        (contact) => contact.isChecked === true
+      );
+      console.log(this.model.members);
+    }
   }
 
   previewImage(e: any) {
@@ -81,10 +90,10 @@ export class ContactsComponent implements OnInit, DoCheck {
     reader.addEventListener(
       'load',
       () => {
-        this.groupIcon = JSON.stringify(reader.result);
+        this.model.image = JSON.stringify(reader.result);
         document
           .getElementById('previewIcon')
-          ?.setAttribute('src', JSON.parse(this.groupIcon));
+          ?.setAttribute('src', JSON.parse(this.model.image));
       },
       false
     );
@@ -95,26 +104,30 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   onSubmit() {
-    this.groupService.addGroup(
-      this.groupName,
-      this.selectedContacts,
-      this.groupIcon
-    );
+    // this.model.members = this.selectedContacts;
+    this.contactService.addContact(this.model as Contact);
     alert('Group created successfully!');
     document
       .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');
-    this.contacts.map((contact) => (contact.isChecked = false));
+    this.contacts = this.contacts.map((contact) => ({
+      ...contact,
+      isChecked: false,
+    }));
+    this.addParticipants = false;
+    this.newGroup = false;
   }
 
   clearSelected() {
     this.addParticipants = false;
-    this.selectedContacts = this.contacts.map((contact) => {
-      return {
-        ...contact,
-        isChecked: false,
-      };
-    });
-    this.contacts = this.selectedContacts;
+    this.contacts = this.contactService.getContacts();
+    this.model.members = [];
+    // this.model.members = this.contacts.map((contact) => {
+    //   return {
+    //     ...contact,
+    //     isChecked: false,
+    //   };
+    // });
+    // this.contacts = this.model.members;
   }
 }

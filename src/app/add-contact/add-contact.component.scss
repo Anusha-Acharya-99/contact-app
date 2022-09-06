@@ -1,21 +1,21 @@
 @import "../../variables";
 
 :host {
-  width: 70%;
+  width: 100%;
 }
 
 .form-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   box-sizing: border-box;
-  @include flex-display(column, center);
+  // @include flex-display(column, center);
   justify-content: space-around;
 }
 
 form {
   @include flex-display(column, center);
   gap: 20px;
-  width: 500px;
+  width: 100%;
   box-sizing: border-box;
   padding: 0;
   background-color: rgb(238, 238, 238);

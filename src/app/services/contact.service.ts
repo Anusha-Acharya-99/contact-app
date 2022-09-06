@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Contact, Group } from '../contact';
+import { Contact } from '../contact';
 import { Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  constructor(private router: Router) {}
+  constructor() {}
 
   getContacts(): Contact[] {
     const storedContacts = localStorage.getItem('contacts');
-    const storedGroups = localStorage.getItem('groups');
+    // const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts).map((contact: Contact) => {
         if (contact.image) {
@@ -26,24 +25,24 @@ export class ContactService {
           };
         }
       });
-      if (storedGroups) {
-        const contactsGroups = contacts.concat(
-          JSON.parse(storedGroups).map((contact: Contact) => {
-            if (contact.image) {
-              return {
-                ...contact,
-                image: JSON.parse(contact.image),
-              };
-            } else {
-              return {
-                ...contact,
-                image: null,
-              };
-            }
-          })
-        );
-        return contactsGroups;
-      }
+      // if (storedGroups) {
+      //   const contactsGroups = contacts.concat(
+      //     JSON.parse(storedGroups).map((contact: Contact) => {
+      //       if (contact.image) {
+      //         return {
+      //           ...contact,
+      //           image: JSON.parse(contact.image),
+      //         };
+      //       } else {
+      //         return {
+      //           ...contact,
+      //           image: null,
+      //         };
+      //       }
+      //     })
+      //   );
+      //   return contactsGroups;
+      // }
       return contacts;
     } else {
       return [];
@@ -52,7 +51,7 @@ export class ContactService {
 
   getContact(id: number): Contact | undefined {
     const storedContacts = localStorage.getItem('contacts');
-    const storedGroups = localStorage.getItem('groups');
+    // const storedGroups = localStorage.getItem('groups');
 
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
@@ -60,24 +59,31 @@ export class ContactService {
       if (contact && contact.image) {
         contact.image = JSON.parse(contact.image);
       }
-      if (!contact && storedGroups) {
-        const groups = JSON.parse(storedGroups);
-        // if (contacts.length === 0 && groups.length === 0) {
-        //   console.log('empty');
-        //   this.router.navigate(['/']);
-        // }
-        const group = groups?.find((group: Group) => group.id === id);
-        if (group && group.image) {
-          group.image = JSON.parse(group.image);
-        }
-        if (group && group.members) {
-          const ids = group.members?.map((member: Contact) => member.id);
-          group.members = this.getContacts().filter((contact) =>
-            ids?.includes(contact.id)
-          );
-        }
-        return group;
+      if (contact && contact.members) {
+        const ids = contact.members?.map((member: Contact) => member.id);
+        contact.members = contacts.filter(
+          (contact: Contact) =>
+            contact.type === 'contact' && ids?.includes(contact.id)
+        );
       }
+      // if (!contact && storedGroups) {
+      //   const groups = JSON.parse(storedGroups);
+      //   // if (contacts.length === 0 && groups.length === 0) {
+      //   //   console.log('empty');
+      //   //   this.router.navigate(['/']);
+      //   // }
+      //   const group = groups?.find((group: Group) => group.id === id);
+      //   if (group && group.image) {
+      //     group.image = JSON.parse(group.image);
+      //   }
+      //   if (group && group.members) {
+      //     const ids = group.members?.map((member: Contact) => member.id);
+      //     group.members = this.getContacts().filter((contact) =>
+      //       ids?.includes(contact.id)
+      //     );
+      //   }
+      //   return group;
+      // }
       return contact;
     }
     return;
@@ -95,21 +101,33 @@ export class ContactService {
 
   deleteContact(id: number) {
     const storedContacts = localStorage.getItem('contacts');
-    const storedGroups = localStorage.getItem('groups');
+    // const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
       const updatedContacts = contacts.filter(
         (contact: Contact) => contact.id !== id
       );
       localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-      if (storedGroups) {
-        const updatedGroups = JSON.parse(storedGroups).filter(
-          (contact: Contact) => contact.id !== id
-        );
-        localStorage.setItem('groups', JSON.stringify(updatedGroups));
-        return updatedContacts.concat(updatedGroups);
-      }
-      return updatedContacts;
+      // if (storedGroups) {
+      //   const updatedGroups = JSON.parse(storedGroups).filter(
+      //     (contact: Contact) => contact.id !== id
+      //   );
+      //   localStorage.setItem('groups', JSON.stringify(updatedGroups));
+      //   return updatedContacts.concat(updatedGroups);
+      // }
+      return updatedContacts.map((contact: Contact) => {
+        if (contact.image) {
+          return {
+            ...contact,
+            image: JSON.parse(contact.image),
+          };
+        } else {
+          return {
+            ...contact,
+            image: null,
+          };
+        }
+      });
     }
   }
 
@@ -118,11 +136,11 @@ export class ContactService {
       return of([]);
     }
     const storedContacts = localStorage.getItem('contacts');
-    const storedGroups = localStorage.getItem('groups');
-    if (storedContacts && storedGroups) {
+    // const storedGroups = localStorage.getItem('groups');
+    if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
-      const groups = JSON.parse(storedGroups);
-      const searchContacts = contacts
+      // const groups = JSON.parse(storedGroups);
+      const searchResult = contacts
         .filter((contact: Contact) =>
           contact.name.toUpperCase().includes(term.toUpperCase())
         )
@@ -132,18 +150,18 @@ export class ContactService {
             image: JSON.parse(contact.image),
           };
         });
-      const searchResult = searchContacts.concat(
-        groups
-          .filter((group: Contact) =>
-            group.name.toUpperCase().includes(term.toUpperCase())
-          )
-          .map((contact: Contact) => {
-            return {
-              ...contact,
-              image: JSON.parse(contact.image),
-            };
-          })
-      );
+      // const searchResult = searchContacts.concat(
+      //   groups
+      //     .filter((group: Contact) =>
+      //       group.name.toUpperCase().includes(term.toUpperCase())
+      //     )
+      //     .map((contact: Contact) => {
+      //       return {
+      //         ...contact,
+      //         image: JSON.parse(contact.image),
+      //       };
+      //     })
+      // );
       return of(searchResult);
     } else {
       return of([]);
@@ -161,7 +179,19 @@ export class ContactService {
         (contact: Contact) => !deletedContacts.includes(contact.id)
       );
       localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-      return updatedContacts;
+      return updatedContacts.map((contact: Contact) => {
+        if (contact.image) {
+          return {
+            ...contact,
+            image: JSON.parse(contact.image),
+          };
+        } else {
+          return {
+            ...contact,
+            image: null,
+          };
+        }
+      });
     }
   }
 }

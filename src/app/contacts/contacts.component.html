@@ -1,5 +1,8 @@
 <div class="list-container">
-  <div class="top-left-container" *ngIf="!addParticipants && !newGroup">
+  <div
+    class="top-left-container"
+    *ngIf="!addParticipants && !newGroup && !newContact"
+  >
     <div class="profile">
       <img src="../../assets/profile.png" alt="" height="30px" width="30px" />
     </div>
@@ -36,20 +39,40 @@
       New group
     </div>
   </div>
+  <div class="top-left-container" *ngIf="newContact">
+    <div class="profile">
+      <img
+        src="../../assets/leftArrow.png"
+        alt=""
+        height="30px"
+        width="30px"
+        class="left-arrow"
+        (click)="newContact = false"
+      />
+      Add Contact
+    </div>
+  </div>
   <div *ngIf="menuOpen" class="menu-container">
-    <div class="menu-option" (click)="menuOpen = false">
-      <a routerLink="/add-contact">Add contact</a>
+    <div class="menu-option">
+      <a (click)="menuOpen = false; newContact = true; newGroup = false"
+        >Add contact</a
+      >
     </div>
     <div class="menu-option">
-      <a (click)="menuOpen = false; addParticipants = true">Create group</a>
+      <a (click)="menuOpen = false; addParticipants = true; newContact = false"
+        >Create group</a
+      >
+    </div>
+    <div class="menu-option">
+      <a (click)="menuOpen = false; deleteMultiple = true">Delete multiple</a>
     </div>
   </div>
   <div
     class="selected-contacts-container"
-    *ngIf="addParticipants && selectedContacts.length !== 0"
+    *ngIf="addParticipants && model.members.length !== 0"
   >
     <div
-      *ngFor="let selectedContact of selectedContacts"
+      *ngFor="let selectedContact of model.members"
       class="selected-contacts"
     >
       {{ selectedContact.name }}
@@ -61,12 +84,12 @@
       />
     </div>
   </div>
-  <div class="search-container" *ngIf="!newGroup">
+  <div class="search-container" *ngIf="!newGroup && !newContact">
     <app-contact-search
       (event)="getContactsBySearch($event)"
     ></app-contact-search>
   </div>
-  <ul *ngIf="!newGroup">
+  <ul *ngIf="!newGroup && !newContact">
     <li
       *ngFor="let contact of contacts"
       [ngClass]="contact.isChecked ? 'selected' : ''"
@@ -89,7 +112,9 @@
         <div
           class="contact-name"
           (click)="
-            addParticipants ? selectContact(contact) : navigate(contact.id)
+            addParticipants || deleteMultiple
+              ? selectContact(contact)
+              : navigate(contact.id)
           "
         >
           <span>{{ contact.name }}</span>
@@ -106,55 +131,32 @@
     </li>
   </ul>
   <div
-    *ngIf="addParticipants && selectedContacts.length !== 0"
+    *ngIf="(addParticipants && model.members.length !== 0) || deleteMultiple"
     class="next-arrow-container"
   >
     <img
+      *ngIf="addParticipants"
       class="icon"
       src="../../assets/nextArrow.png"
       alt=""
       (click)="newGroup = true; addParticipants = false"
     />
+    <img
+      class="icon"
+      src="../../assets/delete.png"
+      alt=""
+      (click)="deleteMultiple = false; multipleDelete()"
+    />
   </div>
-  <form
+  <app-create-group
     *ngIf="newGroup"
-    class="new-group-container"
-    (ngSubmit)="onSubmit(); groupForm.reset()"
-    #groupForm="ngForm"
-  >
-    <input
-      type="file"
-      name="groupIcon"
-      id="groupIcon"
-      (change)="previewImage($event)"
-    />
-    <img
-      src="../../assets/profile.png"
-      id="previewIcon"
-      alt=""
-      height="150px"
-      width="150px"
-    />
-    <div>
-      <label for="groupName">Group Name</label>
-      <input
-        id="name"
-        name="name"
-        [(ngModel)]="groupName"
-        #name="ngModel"
-        required
-      />
-      <small [hidden]="name.valid || name.untouched">Name is required</small>
-    </div>
-    <img
-      src="../../assets/save.jpg"
-      height="50px"
-      width="50px"
-      alt=""
-      *ngIf="groupForm.form.valid"
-      (click)="onSubmit()"
-    />
-  </form>
+    [model]="model"
+    (event)="getContacts(); newGroup = false; clearSelected()"
+  ></app-create-group>
+  <app-add-contact
+    *ngIf="newContact"
+    (event)="getContacts(); newContact = false; clearSelected()"
+  ></app-add-contact>
   <div class="no-content" *ngIf="contacts.length === 0">
     No contacts available
   </div>
