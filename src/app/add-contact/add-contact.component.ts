@@ -22,7 +22,10 @@ export class AddContactComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.contactService.addContact(this.model as Contact);
+    this.contacts = this.contactService.addContact(this.model as Contact);
+    document
+      .getElementById('profileImage')
+      ?.setAttribute('src', '../../assets/profile.png');
     this.model = { name: '', num: '', email: '', image: '' };
     alert('Contact added successfully!');
   }

@@ -38,6 +38,9 @@ export class CreateGroupComponent implements OnInit {
       this.profileImage
     );
     alert('Group created successfully!');
+    document
+      .getElementById('profileImage')
+      ?.setAttribute('src', '../../assets/profile.png');
     this.contacts.map((contact) => (contact.isChecked = false));
   }
 

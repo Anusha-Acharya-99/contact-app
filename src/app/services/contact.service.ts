@@ -1,31 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Contact, Group } from '../contact';
 import { Observable, of } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-  constructor() {}
+  constructor(private router: Router) {}
 
   getContacts(): Contact[] {
     const storedContacts = localStorage.getItem('contacts');
     const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts).map((contact: Contact) => {
-        return {
-          ...contact,
-          image: JSON.parse(contact.image),
-        };
+        if (contact.image) {
+          return {
+            ...contact,
+            image: JSON.parse(contact.image),
+          };
+        } else {
+          return {
+            ...contact,
+            image: null,
+          };
+        }
       });
       if (storedGroups) {
         const contactsGroups = contacts.concat(
           JSON.parse(storedGroups).map((contact: Contact) => {
-            return {
-              ...contact,
-              image: JSON.parse(contact.image),
-            };
+            if (contact.image) {
+              return {
+                ...contact,
+                image: JSON.parse(contact.image),
+              };
+            } else {
+              return {
+                ...contact,
+                image: null,
+              };
+            }
           })
         );
         return contactsGroups;
@@ -39,16 +53,29 @@ export class ContactService {
   getContact(id: number): Contact | undefined {
     const storedContacts = localStorage.getItem('contacts');
     const storedGroups = localStorage.getItem('groups');
+
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
-      const contact = contacts.find((contact: Contact) => contact.id === id)!;
-      if (contact) {
+      const contact = contacts?.find((contact: Contact) => contact.id === id)!;
+      if (contact && contact.image) {
         contact.image = JSON.parse(contact.image);
       }
       if (!contact && storedGroups) {
         const groups = JSON.parse(storedGroups);
-        const group = groups.find((group: Group) => group.id === id);
-        group.image = JSON.parse(group.image);
+        // if (contacts.length === 0 && groups.length === 0) {
+        //   console.log('empty');
+        //   this.router.navigate(['/']);
+        // }
+        const group = groups?.find((group: Group) => group.id === id);
+        if (group && group.image) {
+          group.image = JSON.parse(group.image);
+        }
+        if (group && group.members) {
+          const ids = group.members?.map((member: Contact) => member.id);
+          group.members = this.getContacts().filter((contact) =>
+            ids?.includes(contact.id)
+          );
+        }
         return group;
       }
       return contact;
@@ -57,26 +84,31 @@ export class ContactService {
   }
 
   addContact(model: Contact) {
-    model.name = model.name.trim();
-    model.num = model.num.trim();
-    model.email = model.email.trim();
     const storedContacts = localStorage.getItem('contacts');
     const contacts = storedContacts ? JSON.parse(storedContacts) : [];
     const id = Date.now();
     model.id = id;
     contacts.push(model);
     localStorage.setItem('contacts', JSON.stringify(contacts));
+    return contacts;
   }
 
   deleteContact(id: number) {
     const storedContacts = localStorage.getItem('contacts');
-    // const storedGroups = localStorage.getItem('groups');
+    const storedGroups = localStorage.getItem('groups');
     if (storedContacts) {
       const contacts = JSON.parse(storedContacts);
       const updatedContacts = contacts.filter(
         (contact: Contact) => contact.id !== id
       );
       localStorage.setItem('contacts', JSON.stringify(updatedContacts));
+      if (storedGroups) {
+        const updatedGroups = JSON.parse(storedGroups).filter(
+          (contact: Contact) => contact.id !== id
+        );
+        localStorage.setItem('groups', JSON.stringify(updatedGroups));
+        return updatedContacts.concat(updatedGroups);
+      }
       return updatedContacts;
     }
   }

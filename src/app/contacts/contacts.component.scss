@@ -8,7 +8,7 @@
   @include flex-display(column, left);
   position: relative;
   height: 100vh;
-  overflow-y: scroll;
+  box-sizing: border-box;
   // margin-left: auto;
   // margin-right: auto;
   padding: 0;
@@ -22,40 +22,77 @@
 ul {
   padding: 0;
   margin: 0;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 li {
   position: relative;
   list-style-type: none;
   font-size: 18px;
+  box-sizing: border-box;
   background-color: white;
   padding: 10px 5px;
   border-radius: 5px;
   .list-item {
+    box-sizing: border-box;
     @include flex-display(row, center);
     justify-content: space-between;
   }
   .hide {
     display: none;
   }
-  a {
-    text-decoration: none;
+  .checkbox {
+    visibility: hidden;
+    position: absolute;
+    height: 40px;
+    width: 100%;
+  }
+  .contact-name {
     color: darkslategrey;
+    height: 40px;
+    line-height: 40px;
     width: 80%;
   }
   .delete-container {
     margin-left: 80%;
   }
+
   &:hover {
     background-color: rgb(233, 234, 235);
     color: $main-color;
     .hide {
       display: block;
     }
-    a {
+    .contact-name {
       width: 65%;
     }
   }
+}
+
+.selected-contacts-container {
+  max-height: 100px;
+  box-sizing: border-box;
+  height: auto;
+  overflow-y: auto;
+}
+
+.selected-contacts {
+  @include flex-display(row, left);
+  gap: 5px;
+  padding: 3px;
+  box-sizing: border-box;
+}
+
+.delete-icon {
+  height: 15px;
+  width: 15px;
+  padding: 0;
+}
+
+.selected {
+  background-color: rgb(233, 234, 235);
 }
 
 .delete {
@@ -83,6 +120,7 @@ button {
 
 .top-left-container {
   @include flex-display(row, center);
+  justify-content: space-between;
   height: 60px;
   background-color: rgb(238, 238, 238);
 }
@@ -114,4 +152,21 @@ button {
 
 .menu-option {
   padding: 10px;
+}
+
+.next-arrow-container {
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  bottom: 0;
+}
+
+.left-arrow {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.new-group-container {
+  width: 100%;
+  @include flex-display(column, center);
 }

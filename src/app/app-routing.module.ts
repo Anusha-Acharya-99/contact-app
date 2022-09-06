@@ -9,12 +9,13 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/contacts', pathMatch: 'full' },
-  // { path: '', component: ContactsComponent },
+  // { path: '', component: ContactsComponent, outlet: 'sidebar' },
+  // { path: 'create-group', component: CreateGroupComponent, outlet: 'sidebar' },
   { path: 'detail/:id', component: ContactDetailComponent },
   { path: 'add-contact', component: AddContactComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'group-detail/:id', component: GroupDetailComponent },
-  { path: 'create-group', component: CreateGroupComponent },
+  // { path: 'create-group', component: CreateGroupComponent },
 ];
 
 @NgModule({

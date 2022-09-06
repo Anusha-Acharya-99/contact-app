@@ -4,8 +4,9 @@ export interface Contact {
   id: number;
   email: string;
   image: string;
-  members?: Contact[];
+  members: Contact[];
   isChecked?: boolean;
+  type: string;
 }
 
 export interface Group {

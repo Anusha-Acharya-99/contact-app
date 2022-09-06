@@ -1,9 +1,8 @@
 <div class="list-container">
-  <div class="top-left-container">
+  <div class="top-left-container" *ngIf="!addParticipants && !newGroup">
     <div class="profile">
       <img src="../../assets/profile.png" alt="" height="30px" width="30px" />
     </div>
-    <img class="icon" src="../../assets/chat.png" alt="" />
     <img
       (click)="menuOpen = !menuOpen"
       class="icon"
@@ -11,21 +10,67 @@
       alt=""
     />
   </div>
-  <div *ngIf="menuOpen" class="menu-container">
-    <div class="menu-option">
-      <a href="/add-contact">Add contact</a>
-    </div>
-    <div class="menu-option">
-      <a href="/create-group">Create group</a>
+  <div class="top-left-container" *ngIf="addParticipants">
+    <div class="profile">
+      <img
+        src="../../assets/leftArrow.png"
+        alt=""
+        height="30px"
+        width="30px"
+        class="left-arrow"
+        (click)="clearSelected()"
+      />
+      Add participants
     </div>
   </div>
-  <div class="search-container">
+  <div class="top-left-container" *ngIf="newGroup">
+    <div class="profile">
+      <img
+        src="../../assets/leftArrow.png"
+        alt=""
+        height="30px"
+        width="30px"
+        class="left-arrow"
+        (click)="newGroup = false; addParticipants = true"
+      />
+      New group
+    </div>
+  </div>
+  <div *ngIf="menuOpen" class="menu-container">
+    <div class="menu-option" (click)="menuOpen = false">
+      <a routerLink="/add-contact">Add contact</a>
+    </div>
+    <div class="menu-option">
+      <a (click)="menuOpen = false; addParticipants = true">Create group</a>
+    </div>
+  </div>
+  <div
+    class="selected-contacts-container"
+    *ngIf="addParticipants && selectedContacts.length !== 0"
+  >
+    <div
+      *ngFor="let selectedContact of selectedContacts"
+      class="selected-contacts"
+    >
+      {{ selectedContact.name }}
+      <img
+        src="../../assets/delete.png"
+        class="delete-icon"
+        alt=""
+        (click)="selectContact(selectedContact)"
+      />
+    </div>
+  </div>
+  <div class="search-container" *ngIf="!newGroup">
     <app-contact-search
       (event)="getContactsBySearch($event)"
     ></app-contact-search>
   </div>
-  <ul>
-    <li *ngFor="let contact of contacts">
+  <ul *ngIf="!newGroup">
+    <li
+      *ngFor="let contact of contacts"
+      [ngClass]="contact.isChecked ? 'selected' : ''"
+    >
       <div class="list-item">
         <img
           [src]="contact.image ? contact.image : imageUrl"
@@ -33,10 +78,22 @@
           height="40px"
           width="40px"
         />
-        <a routerLink="/detail/{{ contact.id }}">
+        <input
+          class="checkbox"
+          type="checkbox"
+          name="contact"
+          value="{{ contact.id }}"
+          #contact="ngModel"
+          [(ngModel)]="contact.isChecked"
+        />
+        <div
+          class="contact-name"
+          (click)="
+            addParticipants ? selectContact(contact) : navigate(contact.id)
+          "
+        >
           <span>{{ contact.name }}</span>
-          <!-- <span class="date">{{ contact.id | date: "shortDate" }}</span> -->
-        </a>
+        </div>
         <img
           (click)="delete(contact.id)"
           class="hide"
@@ -46,28 +103,58 @@
           height="22px"
         />
       </div>
-      <!-- <input
-        type="checkbox"
-        name="contact"
-        #contact="ngModel"
-        value="{{ contact.id }}"
-        [(ngModel)]="contact.isChecked"
-      /> -->
-      <!-- <img
-        src="../../assets/delete.png"
-        class="delete"
-        (click)="delete(contact.id)"
-      /> -->
     </li>
   </ul>
-  <!-- <button
-    *ngIf="contacts.length !== 0"
-    [disabled]="!enableDelete"
-    type="button"
-    (click)="multipleDelete()"
+  <div
+    *ngIf="addParticipants && selectedContacts.length !== 0"
+    class="next-arrow-container"
   >
-    Delete
-  </button> -->
+    <img
+      class="icon"
+      src="../../assets/nextArrow.png"
+      alt=""
+      (click)="newGroup = true; addParticipants = false"
+    />
+  </div>
+  <form
+    *ngIf="newGroup"
+    class="new-group-container"
+    (ngSubmit)="onSubmit(); groupForm.reset()"
+    #groupForm="ngForm"
+  >
+    <input
+      type="file"
+      name="groupIcon"
+      id="groupIcon"
+      (change)="previewImage($event)"
+    />
+    <img
+      src="../../assets/profile.png"
+      id="previewIcon"
+      alt=""
+      height="150px"
+      width="150px"
+    />
+    <div>
+      <label for="groupName">Group Name</label>
+      <input
+        id="name"
+        name="name"
+        [(ngModel)]="groupName"
+        #name="ngModel"
+        required
+      />
+      <small [hidden]="name.valid || name.untouched">Name is required</small>
+    </div>
+    <img
+      src="../../assets/save.jpg"
+      height="50px"
+      width="50px"
+      alt=""
+      *ngIf="groupForm.form.valid"
+      (click)="onSubmit()"
+    />
+  </form>
   <div class="no-content" *ngIf="contacts.length === 0">
     No contacts available
   </div>

@@ -1,5 +1,5 @@
 <div *ngIf="contact" class="contact-details">
-  <div class="chat-container">
+  <!-- <div class="chat-container">
     <div class="top-left-container" (click)="showDetails = true">
       <div class="profile">
         <img
@@ -19,17 +19,34 @@
       </div>
     </div>
     <div class="chat-section"></div>
-  </div>
-  <div *ngIf="showDetails" class="details-container">
+  </div> -->
+  <div class="details-container">
     <div class="top-left-container">
+      <div class="profile">
+        <img
+          class="icon"
+          [src]="contact.image ? contact.image : imageUrl"
+          alt=""
+        />
+      </div>
+      <div class="contact-detail">
+        <div class="name-date-container">
+          <span class="name">{{ contact.name }}</span>
+          <span class="date">{{ contact.id | date: "shortDate" }}</span>
+        </div>
+        <div *ngIf="contact.members">
+          <span>{{ members }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="top-left-container">
       <img
         class="icon"
-        src="../../assets/x.jpg"
+        [src]="contact.image ? contact.image : imageUrl"
         alt=""
-        (click)="showDetails = false"
       />
-      <span class="name">Contact info</span>
-    </div>
+      <span class="name">{{ contact.name }}</span>
+    </div> -->
     <img
       [src]="contact.image ? contact.image : imageUrl"
       width="200px"
