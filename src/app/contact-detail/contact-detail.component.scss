@@ -1,9 +1,5 @@
 @import "../../variables";
 
-:host {
-  width: 70%;
-}
-
 .contact-details {
   @include flex-display(row, left);
   // width: 70%;
@@ -11,9 +7,11 @@
   padding: 0;
   height: 100vh;
   margin: 0;
-  background-color: $main-box-color;
+  box-sizing: border-box;
+  background-color: rgb(17, 27, 33);
+
   // padding: 15px;
-  border-radius: 10px;
+  // border-radius: 10px;
   box-shadow: $content-box-shadow;
 }
 
@@ -33,9 +31,10 @@ span {
 }
 
 .name {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   margin: 0 10px;
+  color: rgb(233, 237, 239);
 }
 
 .detail {
@@ -46,7 +45,8 @@ span {
   width: 100%;
   @include flex-display(row, center);
   height: 60px;
-  background-color: rgb(238, 238, 238);
+  color: rgb(233, 237, 239);
+  background-color: rgb(32, 44, 51);
 }
 
 .icon {
@@ -55,11 +55,16 @@ span {
   padding: 10px;
 }
 
+.profile-image {
+  border-radius: 50%;
+}
+
 .details-container {
   @include flex-display(column, center);
-  gap: 30px;
+  justify-content: space-between;
   width: 100%;
-  border-left: 1px solid lightgray;
+  height: 100%;
+  color: rgb(233, 237, 239);
 }
 
 .chat-container {
@@ -76,4 +81,46 @@ span {
 .date {
   position: absolute;
   right: 0;
+  top: 70px;
+  margin: 0;
+  color: rgb(134, 150, 160);
+  font-size: 13px;
+}
+
+.members-name {
+  color: rgb(134, 150, 160);
+  font-size: 13px;
+}
+
+ul {
+  list-style: none;
+  box-sizing: border-box;
+  margin: 10px 0;
+  padding: 0 20px;
+  width: 250px;
+  height: auto;
+  max-height: 170px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(134, 150, 160, 0.15);
+  li {
+    @include flex-display(row, center);
+    padding: 10px 0;
+    gap: 20px;
+    // justify-content: space-between;
+    &:hover {
+      background-color: rgb(32, 44, 51);
+    }
+  }
+  a {
+    text-decoration: none;
+    color: rgb(233, 237, 239);
+    width: 70%;
+  }
+}
+
+.num-email {
+  height: 170px;
+  @include flex-display(column, center);
+  gap: 20px;
 }

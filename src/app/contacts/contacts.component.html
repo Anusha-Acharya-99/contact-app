@@ -1,10 +1,16 @@
 <div class="list-container">
   <div
     class="top-left-container"
-    *ngIf="!addParticipants && !newGroup && !newContact"
+    *ngIf="!addParticipants && !newGroup && !newContact && !deleteMultiple"
   >
     <div class="profile">
-      <img src="../../assets/profile.png" alt="" height="30px" width="30px" />
+      <img
+        src="../../assets/myProfile.jpg"
+        alt=""
+        height="30px"
+        width="30px"
+        class="profile-image"
+      />
     </div>
     <img
       (click)="menuOpen = !menuOpen"
@@ -12,16 +18,32 @@
       src="../../assets/options.png"
       alt=""
     />
+    <div *ngIf="menuOpen" class="menu-container">
+      <div class="menu-option">
+        <a (click)="menuOpen = false; newContact = true; newGroup = false"
+          >Add contact</a
+        >
+      </div>
+      <div class="menu-option">
+        <a (click)="createGroup()">Create group</a>
+      </div>
+      <div class="menu-option">
+        <a (click)="menuOpen = false; deleteMultiple = true">Delete multiple</a>
+      </div>
+    </div>
   </div>
-  <div class="top-left-container" *ngIf="addParticipants">
+  <div class="top-left-container" *ngIf="addParticipants || deleteMultiple">
     <div class="profile">
       <img
         src="../../assets/leftArrow.png"
         alt=""
-        height="30px"
-        width="30px"
+        height="20px"
+        width="25px"
         class="left-arrow"
-        (click)="clearSelected()"
+        (click)="
+          addParticipants ? clearSelected() : (deleteMultiple = false);
+          clearSelected()
+        "
       />
       Add participants
     </div>
@@ -31,8 +53,8 @@
       <img
         src="../../assets/leftArrow.png"
         alt=""
-        height="30px"
-        width="30px"
+        height="20px"
+        width="25px"
         class="left-arrow"
         (click)="newGroup = false; addParticipants = true"
       />
@@ -44,27 +66,12 @@
       <img
         src="../../assets/leftArrow.png"
         alt=""
-        height="30px"
-        width="30px"
+        height="20px"
+        width="25px"
         class="left-arrow"
         (click)="newContact = false"
       />
       Add Contact
-    </div>
-  </div>
-  <div *ngIf="menuOpen" class="menu-container">
-    <div class="menu-option">
-      <a (click)="menuOpen = false; newContact = true; newGroup = false"
-        >Add contact</a
-      >
-    </div>
-    <div class="menu-option">
-      <a (click)="menuOpen = false; addParticipants = true; newContact = false"
-        >Create group</a
-      >
-    </div>
-    <div class="menu-option">
-      <a (click)="menuOpen = false; deleteMultiple = true">Delete multiple</a>
     </div>
   </div>
   <div
@@ -75,16 +82,26 @@
       *ngFor="let selectedContact of model.members"
       class="selected-contacts"
     >
-      {{ selectedContact.name }}
+      <img
+        [src]="selectedContact.image"
+        alt=""
+        height="20px"
+        width="20px"
+        class="selected-profile"
+        style="border-radius: 50%; margin-right: 5px"
+      />
+      <div>{{ selectedContact.name }}</div>
       <img
         src="../../assets/delete.png"
         class="delete-icon"
-        alt=""
         (click)="selectContact(selectedContact)"
       />
     </div>
   </div>
-  <div class="search-container" *ngIf="!newGroup && !newContact">
+  <div
+    class="search-container"
+    *ngIf="!newGroup && !newContact! && !deleteMultiple"
+  >
     <app-contact-search
       (event)="getContactsBySearch($event)"
     ></app-contact-search>
@@ -100,6 +117,7 @@
           alt=""
           height="40px"
           width="40px"
+          class="profile-image"
         />
         <input
           class="checkbox"
@@ -120,12 +138,13 @@
           <span>{{ contact.name }}</span>
         </div>
         <img
+          *ngIf="!addParticipants && !deleteMultiple"
           (click)="delete(contact.id)"
           class="hide"
-          src="../../assets/delete2.png"
+          src="../../assets/delete.png"
           alt=""
-          width="22px"
-          height="22px"
+          width="25px"
+          height="25px"
         />
       </div>
     </li>
@@ -134,15 +153,25 @@
     *ngIf="(addParticipants && model.members.length !== 0) || deleteMultiple"
     class="next-arrow-container"
   >
+    <!-- <button
+      *ngIf="addParticipants"
+      class="button"
+      (click)="newGroup = true; addParticipants = false"
+    >
+      Next
+    </button> -->
     <img
       *ngIf="addParticipants"
-      class="icon"
-      src="../../assets/nextArrow.png"
+      height="40px"
+      width="40px"
+      src="../../assets/save.png"
       alt=""
       (click)="newGroup = true; addParticipants = false"
     />
     <img
-      class="icon"
+      *ngIf="enableDelete"
+      height="40px"
+      width="40px"
       src="../../assets/delete.png"
       alt=""
       (click)="deleteMultiple = false; multipleDelete()"
@@ -157,7 +186,12 @@
     *ngIf="newContact"
     (event)="getContacts(); newContact = false; clearSelected()"
   ></app-add-contact>
-  <div class="no-content" *ngIf="contacts.length === 0">
-    No contacts available
+  <div *ngIf="contacts.length === 0 && !newContact" class="no-content">
+    <div>
+      <img src="../../assets/notFound.png" alt="" />
+    </div>
   </div>
+  <!-- <div class="no-content" *ngIf="contacts.length === 0">
+    No contacts available
+  </div> -->
 </div>

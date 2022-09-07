@@ -7,19 +7,22 @@
 div {
   position: relative;
   text-align: center;
+  background-color: rgb(32, 44, 51);
+  height: 35px;
+  border-radius: 8px;
 }
 
 input {
-  height: 25px;
+  height: 35px;
   width: 100%;
   box-sizing: border-box;
   background: url("../../assets/search.png") top left no-repeat;
   background-size: 20px;
   background-position: 5px;
-  padding-left: 30px;
+  padding-left: 40px;
   outline: none;
   border: none;
-  background-color: white;
+  color: white;
   // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

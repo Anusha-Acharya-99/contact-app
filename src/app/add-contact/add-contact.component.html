@@ -53,9 +53,16 @@
         id="image"
         name="image"
         (change)="previewImage($event)"
+        #contactImage
       />
       <div class="profile-image-container">
-        <img src="../../assets/profile.png" id="profileImage" alt="" />
+        <img
+          src="../../assets/profile.png"
+          id="profileImage"
+          alt=""
+          (click)="contactImage.click()"
+        />
+        <div class="profile-text" (click)="contactImage.click()">Add photo</div>
       </div>
     </div>
     <button type="submit" [disabled]="!contactForm.form.valid">Add</button>

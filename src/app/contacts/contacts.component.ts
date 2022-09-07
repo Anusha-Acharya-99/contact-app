@@ -46,7 +46,9 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   getContacts(): void {
+    // else {
     this.contacts = this.contactService.getContacts();
+    // }
   }
 
   delete(id: number): void {
@@ -67,8 +69,10 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   findSelect() {
-    this.enableDelete =
-      this.contacts.some((contact) => contact.isChecked) === true;
+    if (this.deleteMultiple) {
+      this.enableDelete =
+        this.contacts.some((contact) => contact.isChecked) === true;
+    }
   }
 
   navigate(id: number) {
@@ -106,7 +110,7 @@ export class ContactsComponent implements OnInit, DoCheck {
   onSubmit() {
     // this.model.members = this.selectedContacts;
     this.contactService.addContact(this.model as Contact);
-    alert('Group created successfully!');
+    // alert('Group created successfully!');
     document
       .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');
@@ -129,5 +133,14 @@ export class ContactsComponent implements OnInit, DoCheck {
     //   };
     // });
     // this.contacts = this.model.members;
+  }
+
+  createGroup() {
+    this.menuOpen = false;
+    this.addParticipants = true;
+    this.newContact = false;
+    this.contacts = this.contactService
+      .getContacts()
+      .filter((contact: Contact) => contact.type === 'contact');
   }
 }

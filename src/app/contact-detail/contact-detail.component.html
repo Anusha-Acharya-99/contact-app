@@ -1,30 +1,10 @@
+<div class="contact-details" *ngIf="!contact"></div>
 <div *ngIf="contact" class="contact-details">
-  <!-- <div class="chat-container">
-    <div class="top-left-container" (click)="showDetails = true">
-      <div class="profile">
-        <img
-          class="icon"
-          [src]="contact.image ? contact.image : imageUrl"
-          alt=""
-        />
-      </div>
-      <div class="contact-detail">
-        <div class="name-date-container">
-          <span class="name">{{ contact.name }}</span>
-          <span class="date">{{ contact.id | date: "shortDate" }}</span>
-        </div>
-        <div *ngIf="contact.members">
-          <span>{{ members }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="chat-section"></div>
-  </div> -->
   <div class="details-container">
     <div class="top-left-container">
       <div class="profile">
         <img
-          class="icon"
+          class="icon profile-image"
           [src]="contact.image ? contact.image : imageUrl"
           alt=""
         />
@@ -32,48 +12,45 @@
       <div class="contact-detail">
         <div class="name-date-container">
           <span class="name">{{ contact.name }}</span>
-          <span class="date">{{ contact.id | date: "shortDate" }}</span>
         </div>
         <div *ngIf="contact.members">
-          <span>{{ members }}</span>
+          <span class="members-name">{{ members }}</span>
         </div>
       </div>
     </div>
-    <!-- <div class="top-left-container">
-      <img
-        class="icon"
-        [src]="contact.image ? contact.image : imageUrl"
-        alt=""
-      />
-      <span class="name">{{ contact.name }}</span>
-    </div> -->
+    <span class="date">{{ contact.id | date: "medium" }}</span>
     <img
       [src]="contact.image ? contact.image : imageUrl"
-      width="200px"
-      height="200px"
+      class="profile-image"
+      width="180px"
+      height="180px"
       alt=""
     />
     <div class="name">
       {{ contact.name }}
     </div>
-    <div>
-      {{ contact.num }}
-    </div>
-    <div *ngIf="contact.email">
-      {{ contact.email }}
-    </div>
-    <div *ngIf="contact.members">
-      <div *ngFor="let member of contact.members">
-        {{ member.name }}
+    <div class="num-email" *ngIf="!contact.members">
+      <div>
+        {{ contact.num }}
+      </div>
+      <div *ngIf="contact.email">
+        {{ contact.email }}
       </div>
     </div>
-  </div>
-  <!-- <div class="contact-detail">
-        <img class="icons" src="../../assets/phone.png" alt="phone">
-        <span class="detail">{{contact.num}}</span>
+    <div *ngIf="contact.members">
+      <div class="members-name">{{ contact.members.length }} participants</div>
+      <ul>
+        <li *ngFor="let member of contact.members" class="group-members-list">
+          <img
+            [src]="member.image ? member.image : imageUrl"
+            alt=""
+            height="40px"
+            width="40px"
+            class="profile-image"
+          />
+          <a routerLink="/detail/{{ member.id }}">{{ member.name }}</a>
+        </li>
+      </ul>
     </div>
-    <div class="contact-detail" *ngIf="contact.email">
-        <img class="icons" src="../../assets/email.png" alt="email">
-        <span class="detail">{{contact.email}}</span>
-    </div> -->
+  </div>
 </div>

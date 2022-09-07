@@ -1,36 +1,37 @@
-<form
-  class="new-group-container"
-  (ngSubmit)="onSubmit(); groupForm.reset()"
-  #groupForm="ngForm"
->
+<form (ngSubmit)="onSubmit(); groupForm.reset()" #groupForm="ngForm">
   <input
     type="file"
     name="groupIcon"
     id="groupIcon"
     (change)="previewImage($event)"
+    #groupIcon
   />
-  <img
-    src="../../assets/profile.png"
-    id="previewIcon"
-    alt=""
-    height="150px"
-    width="150px"
-  />
-  <div>
-    <label for="groupName">Group Name</label>
+  <div class="profile-image-container">
+    <img
+      src="../../assets/profile.png"
+      id="previewIcon"
+      alt=""
+      height="150px"
+      width="150px"
+      (click)="groupIcon.click()"
+    />
+    <div class="profile-text" (click)="groupIcon.click()">Add photo</div>
+  </div>
+  <div class="input-container">
     <input
       id="name"
       name="name"
       [(ngModel)]="model.name"
       #name="ngModel"
       required
+      placeholder="Group name"
     />
     <small [hidden]="name.valid || name.untouched">Name is required</small>
   </div>
   <img
-    src="../../assets/save.jpg"
-    height="50px"
-    width="50px"
+    src="../../assets/save.png"
+    height="40px"
+    width="40px"
     alt=""
     *ngIf="groupForm.form.valid"
     (click)="onSubmit()"

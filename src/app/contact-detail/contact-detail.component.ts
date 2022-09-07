@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Contact, Group } from '../contact';
+import { Contact } from '../contact';
 import { ActivatedRoute } from '@angular/router';
 import { ContactService } from '../services/contact.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact-detail',

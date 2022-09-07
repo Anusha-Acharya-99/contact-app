@@ -61,10 +61,27 @@ export class ContactService {
       }
       if (contact && contact.members) {
         const ids = contact.members?.map((member: Contact) => member.id);
-        contact.members = contacts.filter(
-          (contact: Contact) =>
-            contact.type === 'contact' && ids?.includes(contact.id)
-        );
+        contact.members = contacts
+          .filter(
+            (contact: Contact) =>
+              contact.type === 'contact' && ids?.includes(contact.id)
+          )
+          .map((contact: Contact) => {
+            if (contact.image) {
+              return {
+                ...contact,
+                image: JSON.parse(contact.image),
+              };
+            } else {
+              return { ...contact, image: null };
+            }
+          });
+        // .map((contact: Contact) => {
+        //   return {
+        //     ...contact,
+        //     image: JSON.parse(contact.image),
+        //   };
+        // });
       }
       // if (!contact && storedGroups) {
       //   const groups = JSON.parse(storedGroups);

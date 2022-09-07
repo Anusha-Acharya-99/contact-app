@@ -28,3 +28,10 @@ a {
   @include flex-display(row, center);
   justify-content: space-between;
 }
+
+.right-container {
+  background-color: rgb(17, 27, 33);
+  width: 70%;
+  height: 100vh;
+  border-left: 1px solid rgba(134, 150, 160, 0.15);
+}

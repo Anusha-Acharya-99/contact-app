@@ -35,7 +35,7 @@ export class CreateGroupComponent implements OnInit {
 
   onSubmit() {
     this.contactService.addContact(this.model as Contact);
-    alert('Group created successfully!');
+    // alert('Group created successfully!');
     document
       .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');
