@@ -153,13 +153,6 @@
     *ngIf="(addParticipants && model.members.length !== 0) || deleteMultiple"
     class="next-arrow-container"
   >
-    <!-- <button
-      *ngIf="addParticipants"
-      class="button"
-      (click)="newGroup = true; addParticipants = false"
-    >
-      Next
-    </button> -->
     <img
       *ngIf="addParticipants"
       height="40px"
@@ -191,7 +184,4 @@
       <img src="../../assets/notFound.png" alt="" />
     </div>
   </div>
-  <!-- <div class="no-content" *ngIf="contacts.length === 0">
-    No contacts available
-  </div> -->
 </div>

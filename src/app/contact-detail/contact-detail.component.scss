@@ -2,16 +2,11 @@
 
 .contact-details {
   @include flex-display(row, left);
-  // width: 70%;
-  // margin: 30px auto;
   padding: 0;
   height: 100vh;
   margin: 0;
   box-sizing: border-box;
   background-color: rgb(17, 27, 33);
-
-  // padding: 15px;
-  // border-radius: 10px;
   box-shadow: $content-box-shadow;
 }
 
@@ -107,7 +102,6 @@ ul {
     @include flex-display(row, center);
     padding: 10px 0;
     gap: 20px;
-    // justify-content: space-between;
     &:hover {
       background-color: rgb(32, 44, 51);
     }

@@ -2,8 +2,6 @@ import { Component, DoCheck, OnInit } from '@angular/core';
 import { Contact } from '../contact';
 import { ContactService } from '../services/contact.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,7 +18,6 @@ export class ContactsComponent implements OnInit, DoCheck {
   newGroup = false;
   newContact = false;
   deleteMultiple = false;
-  // selectedContacts: Contact[] = [];
   model: { name: string; members: Contact[]; image: string; type: string } = {
     name: '',
     members: [],
@@ -28,27 +25,19 @@ export class ContactsComponent implements OnInit, DoCheck {
     type: 'group',
   };
 
-  constructor(
-    private contactService: ContactService,
-    private groupService: GroupService,
-    private router: Router,
-    public location: Location
-  ) {}
+  constructor(private contactService: ContactService, private router: Router) {}
 
   ngOnInit(): void {
     this.getContacts();
   }
 
   ngDoCheck() {
-    // this.getContacts();
     console.log(this.model.members);
     this.findSelect();
   }
 
   getContacts(): void {
-    // else {
     this.contacts = this.contactService.getContacts();
-    // }
   }
 
   delete(id: number): void {
@@ -108,9 +97,7 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   onSubmit() {
-    // this.model.members = this.selectedContacts;
     this.contactService.addContact(this.model as Contact);
-    // alert('Group created successfully!');
     document
       .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');
@@ -126,13 +113,6 @@ export class ContactsComponent implements OnInit, DoCheck {
     this.addParticipants = false;
     this.contacts = this.contactService.getContacts();
     this.model.members = [];
-    // this.model.members = this.contacts.map((contact) => {
-    //   return {
-    //     ...contact,
-    //     isChecked: false,
-    //   };
-    // });
-    // this.contacts = this.model.members;
   }
 
   createGroup() {

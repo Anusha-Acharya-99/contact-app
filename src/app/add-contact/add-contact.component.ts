@@ -28,7 +28,6 @@ export class AddContactComponent implements OnInit {
       .getElementById('profileImage')
       ?.setAttribute('src', '../../assets/profile.png');
     this.model = { name: '', num: '', email: '', image: '', type: 'contact' };
-    // alert('Contact added successfully!');
     this.event.emit();
   }
 

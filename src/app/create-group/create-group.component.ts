@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Contact } from '../contact';
 import { ContactService } from '../services/contact.service';
-import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-create-group',
@@ -16,10 +15,7 @@ export class CreateGroupComponent implements OnInit {
   @Input() model: any;
   @Output() event = new EventEmitter();
 
-  constructor(
-    private contactService: ContactService,
-    private groupService: GroupService
-  ) {}
+  constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
     this.getContacts();
@@ -35,7 +31,6 @@ export class CreateGroupComponent implements OnInit {
 
   onSubmit() {
     this.contactService.addContact(this.model as Contact);
-    // alert('Group created successfully!');
     document
       .getElementById('groupIcon')
       ?.setAttribute('src', '../../assets/profile.png');

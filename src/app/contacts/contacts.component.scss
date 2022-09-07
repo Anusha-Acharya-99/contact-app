@@ -9,14 +9,9 @@
   position: relative;
   height: 100vh;
   box-sizing: border-box;
-  // margin-left: auto;
-  // margin-right: auto;
   padding: 0;
   margin: 0;
   background-color: rgb(17, 27, 33);
-  // padding: 15px;
-  // border-radius: 10px;
-  // box-shadow: $content-box-shadow;
 }
 
 ul {
@@ -97,7 +92,8 @@ li {
 }
 
 .selected-contacts {
-  @include flex-display(row, left);
+  @include flex-display(row, center);
+  font-size: 14px;
   padding: 3px;
   margin: 5px;
   border-radius: 8px;

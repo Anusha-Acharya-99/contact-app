@@ -9,7 +9,6 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  // @include flex-display(column, center);
   justify-content: space-around;
   color: rgb(233, 237, 239);
 }
@@ -24,8 +23,6 @@ form {
   background-color: rgb(17, 27, 33);
 
   padding: 15px;
-  // border-radius: 10px;
-  // box-shadow: $content-box-shadow;
 }
 
 .form-field {
