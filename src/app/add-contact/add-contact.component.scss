@@ -21,7 +21,7 @@ form {
   box-sizing: border-box;
   padding: 0;
   background-color: $main-background-color;
-  padding: 15px;
+  padding: 1.5rem;
 }
 
 .form-field {
@@ -31,23 +31,24 @@ form {
 }
 
 label {
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
 }
 
 input {
-  height: 30px;
+  height: 3rem;
   border: none;
   background-color: $top-container-color;
   color: $main-text-color;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   outline: none;
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 
 button {
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 0.5rem;
   border: none;
   color: white;
   background-color: rgb(0, 168, 132);
@@ -59,18 +60,19 @@ button {
 
 small {
   color: red;
-  margin-top: 5px;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
 }
 
 .profile-image-container {
   position: relative;
   text-align: center;
-  height: 100px;
-  width: 100px;
-  margin: 10px auto;
+  height: 10rem;
+  width: 10rem;
+  margin: 1rem auto;
   #profileImage {
-    height: 100px;
-    width: 100px;
+    height: 10rem;
+    width: 10rem;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -84,7 +86,7 @@ small {
     .profile-text {
       display: block;
       color: white;
-      font-size: 13px;
+      font-size: 1.3rem;
       position: absolute;
       top: 50%;
       left: 50%;
