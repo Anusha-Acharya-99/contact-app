@@ -6,17 +6,11 @@
   height: 100vh;
   margin: 0;
   box-sizing: border-box;
-  background-color: rgb(17, 27, 33);
-  box-shadow: $content-box-shadow;
+  background-color: $main-background-color;
 }
 
 .contact-detail {
   @include flex-display(column, left);
-}
-
-.icons {
-  width: 22px;
-  height: 22px;
 }
 
 span {
@@ -29,19 +23,15 @@ span {
   font-size: 16px;
   font-weight: 400;
   margin: 0 10px;
-  color: rgb(233, 237, 239);
-}
-
-.detail {
-  font-size: 18px;
+  color: $main-text-color;
 }
 
 .top-left-container {
   width: 100%;
   @include flex-display(row, center);
   height: 60px;
-  color: rgb(233, 237, 239);
-  background-color: rgb(32, 44, 51);
+  color: $main-text-color;
+  background-color: $top-container-color;
 }
 
 .icon {
@@ -59,14 +49,7 @@ span {
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  color: rgb(233, 237, 239);
-}
-
-.chat-container {
-  width: 100%;
-  height: 100vh;
-  background-color: rgb(230, 223, 215);
-  position: relative;
+  color: $main-text-color;
 }
 
 .name-date-container {
@@ -103,12 +86,12 @@ ul {
     padding: 10px 0;
     gap: 20px;
     &:hover {
-      background-color: rgb(32, 44, 51);
+      background-color: $top-container-color;
     }
   }
   a {
     text-decoration: none;
-    color: rgb(233, 237, 239);
+    color: $main-text-color;
     width: 70%;
   }
 }

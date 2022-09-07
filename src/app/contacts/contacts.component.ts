@@ -32,7 +32,6 @@ export class ContactsComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    console.log(this.model.members);
     this.findSelect();
   }
 
@@ -42,7 +41,6 @@ export class ContactsComponent implements OnInit, DoCheck {
 
   delete(id: number): void {
     this.contacts = this.contactService.deleteContact(id);
-    console.log(this.contacts);
   }
 
   multipleDelete() {
@@ -74,7 +72,6 @@ export class ContactsComponent implements OnInit, DoCheck {
       this.model.members = this.contacts.filter(
         (contact) => contact.isChecked === true
       );
-      console.log(this.model.members);
     }
   }
 

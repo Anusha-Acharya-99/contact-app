@@ -107,11 +107,19 @@ export class ContactService {
           contact.name.toUpperCase().includes(term.toUpperCase())
         )
         .map((contact: Contact) => {
-          return {
-            ...contact,
-            image: JSON.parse(contact.image),
-          };
+          if (contact.image) {
+            return {
+              ...contact,
+              image: JSON.parse(contact.image),
+            };
+          } else {
+            return {
+              ...contact,
+              image: null,
+            };
+          }
         });
+      console.log(searchResult);
       return of(searchResult);
     } else {
       return of([]);

@@ -1,43 +1,11 @@
-$main-color: #f52851;
+$main-background-color: rgb(17, 27, 33);
+$top-container-color: rgb(32, 44, 51);
 $disabled-color: grey;
-$main-box-color: white;
+$main-text-color: rgb(233, 237, 239);
 $disabled-opacity: 0.3;
-$content-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-  rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
 @mixin flex-display($direction, $align) {
   display: flex;
   flex-direction: $direction;
   align-items: $align;
-}
-
-@mixin list-container {
-}
-
-@mixin list-item {
-}
-
-@mixin list-link {
-}
-
-@mixin icon {
-}
-
-@mixin no-content {
-}
-
-@mixin button {
-}
-
-@mixin form-container {
-}
-
-@mixin form-field {
-}
-
-@mixin form-input {
-}
-
-@mixin contact-container {
 }

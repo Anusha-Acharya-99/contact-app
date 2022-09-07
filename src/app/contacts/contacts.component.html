@@ -83,7 +83,7 @@
       class="selected-contacts"
     >
       <img
-        [src]="selectedContact.image"
+        [src]="selectedContact.image ? selectedContact.image : imageUrl"
         alt=""
         height="20px"
         width="20px"
@@ -173,7 +173,7 @@
   <app-create-group
     *ngIf="newGroup"
     [model]="model"
-    (event)="getContacts(); newGroup = false; clearSelected()"
+    (event)="getContacts(); newGroup = false; clearSelected(); model.name = ''"
   ></app-create-group>
   <app-add-contact
     *ngIf="newContact"

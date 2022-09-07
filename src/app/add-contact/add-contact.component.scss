@@ -10,7 +10,7 @@
   height: 100%;
   box-sizing: border-box;
   justify-content: space-around;
-  color: rgb(233, 237, 239);
+  color: $main-text-color;
 }
 
 form {
@@ -20,8 +20,7 @@ form {
   width: 100%;
   box-sizing: border-box;
   padding: 0;
-  background-color: rgb(17, 27, 33);
-
+  background-color: $main-background-color;
   padding: 15px;
 }
 
@@ -38,9 +37,11 @@ label {
 input {
   height: 30px;
   border: none;
-  background-color: rgb(32, 44, 51);
-  color: rgb(233, 237, 239);
+  background-color: $top-container-color;
+  color: $main-text-color;
   border-radius: 8px;
+  outline: none;
+  padding: 0 10px;
 }
 
 button {

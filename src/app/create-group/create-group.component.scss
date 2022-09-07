@@ -12,7 +12,7 @@ form {
   height: 100%;
   box-sizing: border-box;
   padding: 0;
-  background-color: rgb(17, 27, 33);
+  background-color: $main-background-color;
   padding: 15px;
 }
 
@@ -31,39 +31,16 @@ input {
   height: 30px;
   width: 80%;
   border: none;
-  background-color: rgb(32, 44, 51);
-  color: rgb(233, 237, 239);
+  background-color: $top-container-color;
+  color: $main-text-color;
   border-radius: 8px;
-}
-
-button {
-  width: 100px;
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  background-color: $main-color;
-  &:disabled {
-    background-color: $disabled-color;
-    opacity: $disabled-opacity;
-  }
+  outline: none;
+  padding: 0 10px;
 }
 
 small {
   color: red;
   margin-top: 5px;
-}
-
-.selectBox {
-  background-color: white;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.member-list {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 input[type="file"] {
